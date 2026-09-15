@@ -59,7 +59,8 @@
   {
     "fournisseur": "iLéco — Thiriet",
     "type": "ileco",
-    "urls": [],
-    "note": "En attente du lien de partage iLéco (bouton Partager sur la fiche dans l'app)."
+    "urls": [
+      "https://ilecoapp.com/thiriet-martinique/0348939001752847387"
+    ]
   }
 ]
