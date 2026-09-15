@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-09-15T02:24:29.026Z",
+  "generated_at": "2026-09-15T02:51:07.141Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:24:29.346Z",
+      "derniere_verification": "2026-09-15T02:51:08.203Z",
       "catalogues": [
         {
           "titre": "carrefour martinique jai choisi 2",
           "lien": "https://www.promos.mq/catalogue/display/2196/carrefour-martinique-jai-choisi-2/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "en route pour la rentree",
           "lien": "https://www.promos.mq/catalogue/display/2179/en-route-pour-la-rentree/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "carrefour martinique jai choisi",
           "lien": "https://www.promos.mq/catalogue/display/2166/carrefour-martinique-jai-choisi/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         }
       ],
       "erreur": null,
@@ -31,25 +31,25 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:24:47.544Z",
+      "derniere_verification": "2026-09-15T02:51:26.488Z",
       "catalogues": [
         {
           "titre": "les maxi economies 8",
           "lien": "https://www.promos.mq/catalogue/display/2197/les-maxi-economies-8/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "la rentree des prix 2",
           "lien": "https://www.promos.mq/catalogue/display/2180/la-rentree-des-prix-2/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "prix casses",
           "lien": "https://www.promos.mq/catalogue/display/2171/prix-casses/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         }
       ],
       "erreur": null,
@@ -58,25 +58,25 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:24:57.025Z",
+      "derniere_verification": "2026-09-15T02:51:35.963Z",
       "catalogues": [
         {
           "titre": "jackpot anniversaire",
           "lien": "https://www.promos.mq/catalogue/display/2192/jackpot-anniversaire/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "special high tech 3",
           "lien": "https://www.promos.mq/catalogue/display/2183/special-high-tech-3/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "les pleins pouvoirs dachat",
           "lien": "https://www.promos.mq/catalogue/display/2177/les-pleins-pouvoirs-dachat/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         }
       ],
       "erreur": null,
@@ -85,25 +85,25 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:25:10.316Z",
+      "derniere_verification": "2026-09-15T02:51:49.083Z",
       "catalogues": [
         {
           "titre": "les prix grossistes pour tous 3",
           "lien": "https://www.promos.mq/catalogue/display/2195/les-prix-grossistes-pour-tous-3/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "mega rentree",
           "lien": "https://www.promos.mq/catalogue/display/2189/mega-rentree/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "les prix grossistes pour tous 2",
           "lien": "https://www.promos.mq/catalogue/display/2162/les-prix-grossistes-pour-tous-2/",
           "statut": "à vérifier",
-          "nouveau": true
+          "nouveau": false
         }
       ],
       "erreur": null,
@@ -112,18 +112,42 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-09-15T02:25:15.592Z",
+      "derniere_verification": "2026-09-15T02:51:54.392Z",
       "catalogues": [],
       "erreur": null,
-      "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner, ou via contact commercial Promocash Le Lamentin."
+      "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
     },
     {
-      "fournisseur": "iLéco",
+      "fournisseur": "iLéco — Auchan",
       "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:25:15.592Z",
+      "derniere_verification": "2026-09-15T02:51:54.393Z",
       "catalogues": [],
       "erreur": null,
-      "note": "Application/site potentiellement dynamique (JS) — extraction best-effort. Si le statut reste 'aucun catalogue trouvé' plusieurs semaines de suite, l'extraction automatique n'est probablement pas possible sans navigateur headless et il faudra repasser en veille manuelle pour cette source."
+      "note": null
+    },
+    {
+      "fournisseur": "iLéco — Carrefour Market",
+      "statut": "aucun catalogue trouvé",
+      "derniere_verification": "2026-09-15T02:52:00.967Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": null
+    },
+    {
+      "fournisseur": "iLéco — Leclerc",
+      "statut": "aucun catalogue trouvé",
+      "derniere_verification": "2026-09-15T02:52:04.234Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": null
+    },
+    {
+      "fournisseur": "iLéco — Thiriet",
+      "statut": "à vérifier manuellement",
+      "derniere_verification": "2026-09-15T02:52:07.565Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": "En attente du lien de partage iLéco (bouton Partager sur la fiche dans l'app)."
     }
   ]
 }
