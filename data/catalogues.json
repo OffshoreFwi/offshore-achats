@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-15T02:56:42.407Z",
+  "generated_at": "2026-09-15T03:03:22.082Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:56:42.685Z",
+      "derniere_verification": "2026-09-15T03:03:22.328Z",
       "catalogues": [
         {
           "titre": "carrefour martinique jai choisi 2",
@@ -34,7 +34,7 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:56:59.521Z",
+      "derniere_verification": "2026-09-15T03:03:40.519Z",
       "catalogues": [
         {
           "titre": "les maxi economies 8",
@@ -64,7 +64,7 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:57:08.140Z",
+      "derniere_verification": "2026-09-15T03:03:50.409Z",
       "catalogues": [
         {
           "titre": "jackpot anniversaire",
@@ -94,7 +94,7 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:57:20.808Z",
+      "derniere_verification": "2026-09-15T03:04:03.970Z",
       "catalogues": [
         {
           "titre": "les prix grossistes pour tous 3",
@@ -124,7 +124,7 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-09-15T02:57:25.667Z",
+      "derniere_verification": "2026-09-15T03:04:09.414Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
@@ -132,21 +132,21 @@
     {
       "fournisseur": "iLéco — Auchan",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:57:25.667Z",
+      "derniere_verification": "2026-09-15T03:04:09.414Z",
       "catalogues": [
         {
           "titre": "AUCHAN MARTINIQUE",
           "lien": "https://ilecoapp.com/auchan-martinique/0958006001640038048",
           "statut": "à jour",
           "empreinte": "https://ilecoapp.com/auchan-martinique/0958006001640038048#2603283",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "AUCHAN MARTINIQUE",
           "lien": "https://ilecoapp.com/auchan-martinique/0089922001747745125",
           "statut": "à jour",
           "empreinte": "https://ilecoapp.com/auchan-martinique/0089922001747745125#2780302",
-          "nouveau": true
+          "nouveau": false
         }
       ],
       "erreur": null,
@@ -155,14 +155,14 @@
     {
       "fournisseur": "iLéco — Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:57:28.517Z",
+      "derniere_verification": "2026-09-15T03:04:12.590Z",
       "catalogues": [
         {
           "titre": "CARREFOUR MARKET MARTINIQUE",
           "lien": "https://ilecoapp.com/carrefour-market-martinique/0843385001641312823",
           "statut": "à jour",
           "empreinte": "https://ilecoapp.com/carrefour-market-martinique/0843385001641312823#2606413",
-          "nouveau": true
+          "nouveau": false
         }
       ],
       "erreur": null,
@@ -171,14 +171,14 @@
     {
       "fournisseur": "iLéco — Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:57:29.816Z",
+      "derniere_verification": "2026-09-15T03:04:13.907Z",
       "catalogues": [
         {
           "titre": "E.LECLERC MARTINIQUE",
           "lien": "https://ilecoapp.com/eleclerc-martinique/0701589001692717019",
           "statut": "à jour",
           "empreinte": "https://ilecoapp.com/eleclerc-martinique/0701589001692717019#2723534",
-          "nouveau": true
+          "nouveau": false
         }
       ],
       "erreur": null,
@@ -186,11 +186,19 @@
     },
     {
       "fournisseur": "iLéco — Thiriet",
-      "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-09-15T02:57:30.999Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T03:04:15.227Z",
+      "catalogues": [
+        {
+          "titre": "THIRIET MARTINIQUE",
+          "lien": "https://ilecoapp.com/thiriet-martinique/0348939001752847387",
+          "statut": "à jour",
+          "empreinte": "https://ilecoapp.com/thiriet-martinique/0348939001752847387#2784701",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
-      "note": "En attente du lien de partage iLéco (bouton Partager sur la fiche dans l'app)."
+      "note": null
     }
   ]
 }
