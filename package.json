@@ -7,6 +7,6 @@
     "scrape": "node scraper/scrape.js"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "playwright": "^1.47.0"
   }
 }
