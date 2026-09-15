@@ -32,13 +32,34 @@
   {
     "fournisseur": "Promocash",
     "urls": [],
-    "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner, ou via contact commercial Promocash Le Lamentin."
+    "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
   },
   {
-    "fournisseur": "iLéco",
+    "fournisseur": "iLéco — Auchan",
+    "type": "ileco",
     "urls": [
-      "https://ilecoapp.com/"
-    ],
-    "note": "Application/site potentiellement dynamique (JS) — extraction best-effort. Si le statut reste 'aucun catalogue trouvé' plusieurs semaines de suite, l'extraction automatique n'est probablement pas possible sans navigateur headless et il faudra repasser en veille manuelle pour cette source."
+      "https://ilecoapp.com/auchan-martinique/0958006001640038048",
+      "https://ilecoapp.com/auchan-martinique/0089922001747745125"
+    ]
+  },
+  {
+    "fournisseur": "iLéco — Carrefour Market",
+    "type": "ileco",
+    "urls": [
+      "https://ilecoapp.com/carrefour-market-martinique/0843385001641312823"
+    ]
+  },
+  {
+    "fournisseur": "iLéco — Leclerc",
+    "type": "ileco",
+    "urls": [
+      "https://ilecoapp.com/eleclerc-martinique/0701589001692717019"
+    ]
+  },
+  {
+    "fournisseur": "iLéco — Thiriet",
+    "type": "ileco",
+    "urls": [],
+    "note": "En attente du lien de partage iLéco (bouton Partager sur la fiche dans l'app)."
   }
 ]
