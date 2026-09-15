@@ -2,16 +2,21 @@
 // Détecte les catalogues/prospectus publics des fournisseurs surveillés
 // et écrit le résultat dans data/catalogues.json, lu par offshore-achats.html
 //
+// promos.mq injecte son contenu en JavaScript après le chargement initial :
+// une simple requête HTTP ne suffit pas, on utilise donc un navigateur headless
+// (Playwright/Chromium) pour obtenir le HTML final, réellement rendu.
+//
 // N'extrait PAS les prix ligne par ligne (trop risqué en automatique) :
 // il détecte les NOUVEAUX catalogues disponibles, pour analyse ensuite
 // via l'onglet Scanner de l'application (IA sur la page exacte).
 
-import fetch from "node-fetch";
+import { chromium } from "playwright";
 import fs from "fs";
 
 const SOURCES_PATH = new URL("./sources.json", import.meta.url);
 const OUT_PATH = "data/catalogues.json";
-const USER_AGENT = "Mozilla/5.0 (compatible; OffshoreAchatsBot/1.0; usage interne veille prix Offshore FWI Martinique)";
+const USER_AGENT =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
 function loadSources() {
   return JSON.parse(fs.readFileSync(SOURCES_PATH, "utf8"));
@@ -25,29 +30,22 @@ function loadPrevious() {
   }
 }
 
-async function fetchPage(url) {
-  const res = await fetch(url, {
-    headers: { "User-Agent": USER_AGENT },
-    timeout: 20000,
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.text();
-}
-
-// Extraction générique pour les pages promos.mq (structure stable observée :
-// lien /catalogue/display/<id>/<slug>/ suivi de "Valable encore X jours" ou "Expiré")
+// Extraction générique pour les pages promos.mq : lien /catalogue/display/<id>/<slug>/
+// suivi (avant ou après selon le rendu) de "Valable encore X jours" ou "Expiré"
 function extractCataloguesPromosMq(html) {
   const results = [];
-  const linkRegex = /href="(https?:\/\/www\.promos\.mq\/catalogue\/display\/\d+\/[^"?#]+)\/?"/g;
+  const linkRegex = /href="([^"]*\/catalogue\/display\/\d+\/[^"?#]+)\/?"/g;
   const seen = new Set();
   let m;
   while ((m = linkRegex.exec(html)) !== null) {
-    const link = m[1].endsWith("/") ? m[1] : m[1] + "/";
+    let link = m[1];
+    if (link.startsWith("/")) link = "https://www.promos.mq" + link;
+    if (!link.endsWith("/")) link += "/";
     if (seen.has(link)) continue;
     seen.add(link);
 
     const windowText = html
-      .slice(Math.max(0, m.index - 700), m.index + 300)
+      .slice(Math.max(0, m.index - 800), m.index + 400)
       .replace(/<[^>]+>/g, " ")
       .replace(/\s+/g, " ");
 
@@ -69,7 +67,7 @@ function extractCataloguesPromosMq(html) {
   return results;
 }
 
-async function scrapeSource(source) {
+async function scrapeSource(browser, source) {
   const entry = {
     fournisseur: source.fournisseur,
     statut: "ok",
@@ -86,16 +84,23 @@ async function scrapeSource(source) {
 
   let all = [];
   let lastError = null;
+  const context = await browser.newContext({ userAgent: USER_AGENT, locale: "fr-FR" });
 
   for (const url of source.urls) {
+    const page = await context.newPage();
     try {
-      const html = await fetchPage(url);
+      await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
+      await page.waitForTimeout(1500); // laisse le JS finir d'injecter le contenu
+      const html = await page.content();
       all = all.concat(extractCataloguesPromosMq(html));
     } catch (e) {
       lastError = e.message;
+    } finally {
+      await page.close();
     }
-    await new Promise((r) => setTimeout(r, 1200)); // politesse entre requêtes
+    await new Promise((r) => setTimeout(r, 1000)); // politesse entre requêtes
   }
+  await context.close();
 
   const dedup = new Map();
   for (const c of all) dedup.set(c.lien, c);
@@ -120,15 +125,20 @@ async function run() {
   }
 
   const out = { generated_at: new Date().toISOString(), sources: [] };
+  const browser = await chromium.launch();
 
-  for (const source of sources) {
-    console.log("Scraping:", source.fournisseur);
-    const entry = await scrapeSource(source);
-    entry.catalogues = entry.catalogues.map((c) => ({
-      ...c,
-      nouveau: !prevLinks.has(c.lien),
-    }));
-    out.sources.push(entry);
+  try {
+    for (const source of sources) {
+      console.log("Scraping:", source.fournisseur);
+      const entry = await scrapeSource(browser, source);
+      entry.catalogues = entry.catalogues.map((c) => ({
+        ...c,
+        nouveau: !prevLinks.has(c.lien),
+      }));
+      out.sources.push(entry);
+    }
+  } finally {
+    await browser.close();
   }
 
   fs.mkdirSync("data", { recursive: true });
