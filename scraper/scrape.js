@@ -55,9 +55,8 @@ function extractCataloguesPromosMq(html) {
       .replace(/<[^>]+>/g, " ")
       .replace(/\s+/g, " ");
 
-    let statut = "à vérifier";
+    let statut = "à jour";
     if (/Expiré/i.test(windowText)) statut = "expiré";
-    else if (/Valable encore\s*\d+\s*jours?/i.test(windowText)) statut = "à jour";
 
     const slugMatch = link.match(/display\/\d+\/([^/]+)\/?$/);
     let titre = "Catalogue";
