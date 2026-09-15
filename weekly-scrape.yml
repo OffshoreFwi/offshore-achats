@@ -1,4 +1,4 @@
-name: Scraping hebdomadaire catalogues
+name: github/workflows/weekly-scrape.yml
 
 on:
   schedule:
