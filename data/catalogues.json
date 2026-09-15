@@ -1,27 +1,30 @@
 {
-  "generated_at": "2026-09-15T02:51:07.141Z",
+  "generated_at": "2026-09-15T02:56:42.407Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:51:08.203Z",
+      "derniere_verification": "2026-09-15T02:56:42.685Z",
       "catalogues": [
         {
           "titre": "carrefour martinique jai choisi 2",
           "lien": "https://www.promos.mq/catalogue/display/2196/carrefour-martinique-jai-choisi-2/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2196/carrefour-martinique-jai-choisi-2/",
           "nouveau": false
         },
         {
           "titre": "en route pour la rentree",
           "lien": "https://www.promos.mq/catalogue/display/2179/en-route-pour-la-rentree/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2179/en-route-pour-la-rentree/",
           "nouveau": false
         },
         {
           "titre": "carrefour martinique jai choisi",
           "lien": "https://www.promos.mq/catalogue/display/2166/carrefour-martinique-jai-choisi/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2166/carrefour-martinique-jai-choisi/",
           "nouveau": false
         }
       ],
@@ -31,24 +34,27 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:51:26.488Z",
+      "derniere_verification": "2026-09-15T02:56:59.521Z",
       "catalogues": [
         {
           "titre": "les maxi economies 8",
           "lien": "https://www.promos.mq/catalogue/display/2197/les-maxi-economies-8/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2197/les-maxi-economies-8/",
           "nouveau": false
         },
         {
           "titre": "la rentree des prix 2",
           "lien": "https://www.promos.mq/catalogue/display/2180/la-rentree-des-prix-2/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2180/la-rentree-des-prix-2/",
           "nouveau": false
         },
         {
           "titre": "prix casses",
           "lien": "https://www.promos.mq/catalogue/display/2171/prix-casses/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2171/prix-casses/",
           "nouveau": false
         }
       ],
@@ -58,24 +64,27 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:51:35.963Z",
+      "derniere_verification": "2026-09-15T02:57:08.140Z",
       "catalogues": [
         {
           "titre": "jackpot anniversaire",
           "lien": "https://www.promos.mq/catalogue/display/2192/jackpot-anniversaire/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2192/jackpot-anniversaire/",
           "nouveau": false
         },
         {
           "titre": "special high tech 3",
           "lien": "https://www.promos.mq/catalogue/display/2183/special-high-tech-3/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2183/special-high-tech-3/",
           "nouveau": false
         },
         {
           "titre": "les pleins pouvoirs dachat",
           "lien": "https://www.promos.mq/catalogue/display/2177/les-pleins-pouvoirs-dachat/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2177/les-pleins-pouvoirs-dachat/",
           "nouveau": false
         }
       ],
@@ -85,24 +94,27 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T02:51:49.083Z",
+      "derniere_verification": "2026-09-15T02:57:20.808Z",
       "catalogues": [
         {
           "titre": "les prix grossistes pour tous 3",
           "lien": "https://www.promos.mq/catalogue/display/2195/les-prix-grossistes-pour-tous-3/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2195/les-prix-grossistes-pour-tous-3/",
           "nouveau": false
         },
         {
           "titre": "mega rentree",
           "lien": "https://www.promos.mq/catalogue/display/2189/mega-rentree/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2189/mega-rentree/",
           "nouveau": false
         },
         {
           "titre": "les prix grossistes pour tous 2",
           "lien": "https://www.promos.mq/catalogue/display/2162/les-prix-grossistes-pour-tous-2/",
           "statut": "à vérifier",
+          "empreinte": "https://www.promos.mq/catalogue/display/2162/les-prix-grossistes-pour-tous-2/",
           "nouveau": false
         }
       ],
@@ -112,39 +124,70 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-09-15T02:51:54.392Z",
+      "derniere_verification": "2026-09-15T02:57:25.667Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
     },
     {
       "fournisseur": "iLéco — Auchan",
-      "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:51:54.393Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T02:57:25.667Z",
+      "catalogues": [
+        {
+          "titre": "AUCHAN MARTINIQUE",
+          "lien": "https://ilecoapp.com/auchan-martinique/0958006001640038048",
+          "statut": "à jour",
+          "empreinte": "https://ilecoapp.com/auchan-martinique/0958006001640038048#2603283",
+          "nouveau": true
+        },
+        {
+          "titre": "AUCHAN MARTINIQUE",
+          "lien": "https://ilecoapp.com/auchan-martinique/0089922001747745125",
+          "statut": "à jour",
+          "empreinte": "https://ilecoapp.com/auchan-martinique/0089922001747745125#2780302",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
       "note": null
     },
     {
       "fournisseur": "iLéco — Carrefour Market",
-      "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:52:00.967Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T02:57:28.517Z",
+      "catalogues": [
+        {
+          "titre": "CARREFOUR MARKET MARTINIQUE",
+          "lien": "https://ilecoapp.com/carrefour-market-martinique/0843385001641312823",
+          "statut": "à jour",
+          "empreinte": "https://ilecoapp.com/carrefour-market-martinique/0843385001641312823#2606413",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
       "note": null
     },
     {
       "fournisseur": "iLéco — Leclerc",
-      "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:52:04.234Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T02:57:29.816Z",
+      "catalogues": [
+        {
+          "titre": "E.LECLERC MARTINIQUE",
+          "lien": "https://ilecoapp.com/eleclerc-martinique/0701589001692717019",
+          "statut": "à jour",
+          "empreinte": "https://ilecoapp.com/eleclerc-martinique/0701589001692717019#2723534",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
       "note": null
     },
     {
       "fournisseur": "iLéco — Thiriet",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-09-15T02:52:07.565Z",
+      "derniere_verification": "2026-09-15T02:57:30.999Z",
       "catalogues": [],
       "erreur": null,
       "note": "En attente du lien de partage iLéco (bouton Partager sur la fiche dans l'app)."
