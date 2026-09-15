@@ -1,0 +1,44 @@
+[
+  {
+    "fournisseur": "Carrefour",
+    "urls": [
+      "https://www.promos.mq/catalogues/magasin/carrefour-genipa-ducos/",
+      "https://www.promos.mq/catalogues/magasin/carrefour-dillon-fort-de-france/",
+      "https://www.promos.mq/catalogues/magasin/carrefour-oceanis-le-robert/",
+      "https://www.promos.mq/catalogues/magasin/carrefour-cluny-schoelcher/"
+    ]
+  },
+  {
+    "fournisseur": "Carrefour Market",
+    "urls": [
+      "https://www.promos.mq/catalogues/magasin/carrefour-market-bac-la-trinite/",
+      "https://www.promos.mq/catalogues/magasin/carrefour-market-montgerald-le-marin/"
+    ]
+  },
+  {
+    "fournisseur": "Leclerc",
+    "urls": [
+      "https://www.promos.mq/catalogues/magasin/eleclerc-place-darmes-le-lamentin/",
+      "https://www.promos.mq/catalogues/magasin/eleclerc-galleria-le-lamentin/",
+      "https://www.promos.mq/catalogues/magasin/eleclerc-le-rond-point-fort-de-france/"
+    ]
+  },
+  {
+    "fournisseur": "Megastock",
+    "urls": [
+      "https://www.promos.mq/catalogues/magasin/mega-stock-long-pre-le-lamentin/"
+    ]
+  },
+  {
+    "fournisseur": "Promocash",
+    "urls": [],
+    "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner, ou via contact commercial Promocash Le Lamentin."
+  },
+  {
+    "fournisseur": "iLéco",
+    "urls": [
+      "https://ilecoapp.com/"
+    ],
+    "note": "Application/site potentiellement dynamique (JS) — extraction best-effort. Si le statut reste 'aucun catalogue trouvé' plusieurs semaines de suite, l'extraction automatique n'est probablement pas possible sans navigateur headless et il faudra repasser en veille manuelle pour cette source."
+  }
+]
