@@ -2,9 +2,15 @@
 // Détecte les catalogues/prospectus publics des fournisseurs surveillés
 // et écrit le résultat dans data/catalogues.json, lu par offshore-achats.html
 //
-// promos.mq injecte son contenu en JavaScript après le chargement initial :
-// une simple requête HTTP ne suffit pas, on utilise donc un navigateur headless
-// (Playwright/Chromium) pour obtenir le HTML final, réellement rendu.
+// Deux types de sources, chacune avec sa méthode d'extraction :
+//  - "promosmq" (par défaut) : promos.mq injecte son contenu en JavaScript,
+//    on utilise donc un navigateur headless (Playwright/Chromium).
+//  - "ileco" : les fiches ilecoapp.com sont rendues côté serveur (Joomag) et
+//    contiennent un identifiant de catalogue (mID) dans leurs balises meta —
+//    une simple requête HTTP suffit. La page reste la même d'une semaine à
+//    l'autre (c'est la fiche de l'enseigne, pas du catalogue), donc on détecte
+//    un nouveau catalogue en comparant le mID d'une semaine à l'autre plutôt
+//    que le lien.
 //
 // N'extrait PAS les prix ligne par ligne (trop risqué en automatique) :
 // il détecte les NOUVEAUX catalogues disponibles, pour analyse ensuite
@@ -30,8 +36,7 @@ function loadPrevious() {
   }
 }
 
-// Extraction générique pour les pages promos.mq : lien /catalogue/display/<id>/<slug>/
-// suivi (avant ou après selon le rendu) de "Valable encore X jours" ou "Expiré"
+// ─── Extraction promos.mq (rendu JS, via navigateur headless) ───
 function extractCataloguesPromosMq(html) {
   const results = [];
   const linkRegex = /href="([^"]*\/catalogue\/display\/\d+\/[^"?#]+)\/?"/g;
@@ -63,9 +68,41 @@ function extractCataloguesPromosMq(html) {
         titre = slugMatch[1].replace(/-/g, " ");
       }
     }
-    results.push({ titre, lien: link, statut });
+    // empreinte = ce qui doit changer pour qu'on considère "nouveau" :
+    // ici le lien lui-même (un nouveau catalogue = un nouveau lien)
+    results.push({ titre, lien: link, statut, empreinte: link });
   }
   return results;
+}
+
+// ─── Extraction iLéco / Joomag (rendu serveur, simple fetch) ───
+function getMetaContent(html, property) {
+  const re1 = new RegExp(`<meta[^>]*property=["']${property}["'][^>]*content=["']([^"']*)["']`, "i");
+  const re2 = new RegExp(`<meta[^>]*content=["']([^"']*)["'][^>]*property=["']${property}["']`, "i");
+  const m1 = html.match(re1);
+  if (m1) return m1[1];
+  const m2 = html.match(re2);
+  if (m2) return m2[1];
+  return null;
+}
+async function extractIleco(url) {
+  const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const html = await res.text();
+  const titre = getMetaContent(html, "og:title") || "Catalogue iLéco";
+  const image = getMetaContent(html, "og:image") || "";
+  const midMatch = image.match(/mID=(\d+)/);
+  const mid = midMatch ? midMatch[1] : null;
+  return [
+    {
+      titre,
+      lien: url,
+      statut: "à jour",
+      // empreinte = mID Joomag : change quand l'enseigne publie un nouveau catalogue,
+      // même si l'URL de la fiche reste identique
+      empreinte: mid ? `${url}#${mid}` : url,
+    },
+  ];
 }
 
 async function scrapeSource(browser, source) {
@@ -85,26 +122,37 @@ async function scrapeSource(browser, source) {
 
   let all = [];
   let lastError = null;
-  const context = await browser.newContext({ userAgent: USER_AGENT, locale: "fr-FR" });
 
-  for (const url of source.urls) {
-    const page = await context.newPage();
-    try {
-      await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
-      await page.waitForTimeout(1500); // laisse le JS finir d'injecter le contenu
-      const html = await page.content();
-      all = all.concat(extractCataloguesPromosMq(html));
-    } catch (e) {
-      lastError = e.message;
-    } finally {
-      await page.close();
+  if (source.type === "ileco") {
+    for (const url of source.urls) {
+      try {
+        all = all.concat(await extractIleco(url));
+      } catch (e) {
+        lastError = e.message;
+      }
+      await new Promise((r) => setTimeout(r, 1000));
     }
-    await new Promise((r) => setTimeout(r, 1000)); // politesse entre requêtes
+  } else {
+    const context = await browser.newContext({ userAgent: USER_AGENT, locale: "fr-FR" });
+    for (const url of source.urls) {
+      const page = await context.newPage();
+      try {
+        await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
+        await page.waitForTimeout(1500);
+        const html = await page.content();
+        all = all.concat(extractCataloguesPromosMq(html));
+      } catch (e) {
+        lastError = e.message;
+      } finally {
+        await page.close();
+      }
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+    await context.close();
   }
-  await context.close();
 
   const dedup = new Map();
-  for (const c of all) dedup.set(c.lien, c);
+  for (const c of all) dedup.set(c.empreinte, c);
   entry.catalogues = Array.from(dedup.values());
 
   if (entry.catalogues.length === 0 && lastError) {
@@ -120,9 +168,9 @@ async function run() {
   const sources = loadSources();
   const previous = loadPrevious();
 
-  const prevLinks = new Set();
+  const prevFingerprints = new Set();
   for (const s of previous.sources || []) {
-    for (const c of s.catalogues || []) prevLinks.add(c.lien);
+    for (const c of s.catalogues || []) prevFingerprints.add(c.empreinte || c.lien);
   }
 
   const out = { generated_at: new Date().toISOString(), sources: [] };
@@ -134,7 +182,7 @@ async function run() {
       const entry = await scrapeSource(browser, source);
       entry.catalogues = entry.catalogues.map((c) => ({
         ...c,
-        nouveau: !prevLinks.has(c.lien),
+        nouveau: !prevFingerprints.has(c.empreinte),
       }));
       out.sources.push(entry);
     }
