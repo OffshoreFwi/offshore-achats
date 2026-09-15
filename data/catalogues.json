@@ -1,4 +1,53 @@
 {
-  "generated_at": null,
-  "sources": []
+  "generated_at": "2026-09-15T02:08:20.784Z",
+  "sources": [
+    {
+      "fournisseur": "Carrefour",
+      "statut": "aucun catalogue trouvé",
+      "derniere_verification": "2026-09-15T02:08:20.787Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": null
+    },
+    {
+      "fournisseur": "Carrefour Market",
+      "statut": "aucun catalogue trouvé",
+      "derniere_verification": "2026-09-15T02:08:27.746Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": null
+    },
+    {
+      "fournisseur": "Leclerc",
+      "statut": "aucun catalogue trouvé",
+      "derniere_verification": "2026-09-15T02:08:30.971Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": null
+    },
+    {
+      "fournisseur": "Megastock",
+      "statut": "aucun catalogue trouvé",
+      "derniere_verification": "2026-09-15T02:08:35.784Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": null
+    },
+    {
+      "fournisseur": "Promocash",
+      "statut": "à vérifier manuellement",
+      "derniere_verification": "2026-09-15T02:08:37.490Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner, ou via contact commercial Promocash Le Lamentin."
+    },
+    {
+      "fournisseur": "iLéco",
+      "statut": "aucun catalogue trouvé",
+      "derniere_verification": "2026-09-15T02:08:37.490Z",
+      "catalogues": [],
+      "erreur": null,
+      "note": "Application/site potentiellement dynamique (JS) — extraction best-effort. Si le statut reste 'aucun catalogue trouvé' plusieurs semaines de suite, l'extraction automatique n'est probablement pas possible sans navigateur headless et il faudra repasser en veille manuelle pour cette source."
+    }
+  ]
 }
