@@ -39,13 +39,14 @@ function extractCataloguesPromosMq(html) {
   let m;
   while ((m = linkRegex.exec(html)) !== null) {
     let link = m[1];
-    if (link.startsWith("/")) link = "https://www.promos.mq" + link;
+    if (link.startsWith("//")) link = "https:" + link;
+    else if (link.startsWith("/")) link = "https://www.promos.mq" + link;
     if (!link.endsWith("/")) link += "/";
     if (seen.has(link)) continue;
     seen.add(link);
 
     const windowText = html
-      .slice(Math.max(0, m.index - 800), m.index + 400)
+      .slice(Math.max(0, m.index - 2000), m.index + 1000)
       .replace(/<[^>]+>/g, " ")
       .replace(/\s+/g, " ");
 
