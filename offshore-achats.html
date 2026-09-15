@@ -610,7 +610,7 @@ function renderSources(){
     return `<div class="page-title">Sources surveillées 🔎</div>
     <div class="page-sub">Catalogues détectés automatiquement chaque semaine</div>
     <div class="al a"><div><div class="al-ti">Flux pas encore disponible</div>
-    <div class="al-tx">Le scraper GitHub Actions n'a pas encore tourné, ou data/catalogues.json n'existe pas encore dans le repo. Lance-le manuellement depuis l'onglet "Actions" du repo GitHub (bouton "Run workflow") pour générer la première version.</div></div></div>
+    <div class="al-tx">${STATE.sourcesError?esc(STATE.sourcesError)+" — v":"V"}érifie que le repo GitHub est bien public, et que data/catalogues.json existe.</div></div></div>
     <div class="btn-row" style="margin-top:10px"><button class="btn" onclick="fetchSources()">↻ Réessayer</button></div>`;
   }
   const d=STATE.sourcesData;
