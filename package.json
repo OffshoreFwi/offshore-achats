@@ -1,0 +1,12 @@
+{
+  "name": "offshore-achats-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape": "node scraper/scrape.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
