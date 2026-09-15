@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offshore — Gestion Achats</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1117;--bg2:#161b24;--bg3:#1e2535;--bg4:#252d3d;
+  --acc:#00e5a0;--acc2:#0099ff;--warn:#ffb83f;--danger:#ff4f6d;
+  --text:#e2e8f4;--muted:#7a8aab;--border:rgba(255,255,255,0.07);
+  --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+/* TOPBAR */
+.topbar{display:flex;align-items:center;gap:0;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;height:48px}
+.tb-logo{padding:0 20px;font-size:15px;font-weight:500;color:var(--acc);letter-spacing:-.3px;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.tb-logo span{font-size:11px;color:var(--muted);font-weight:300;letter-spacing:1px;text-transform:uppercase}
+.tb-tabs{display:flex;height:100%;flex:1;overflow-x:auto}
+.tb-tabs::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;gap:7px;padding:0 18px;font-size:12.5px;color:var(--muted);cursor:pointer;border-right:1px solid var(--border);border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s;background:none;border-top:none;border-left:none;font-family:var(--font);height:100%}
+.tab:hover{color:var(--text);background:var(--bg3)}
+.tab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--bg)}
+.tab .badge{background:var(--danger);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-family:var(--mono)}
+/* MAIN */
+.body{flex:1;overflow:hidden;display:flex}
+.content{flex:1;overflow-y:auto;padding:20px 24px}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-track{background:transparent}
+.content::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+/* TYPOGRAPHY */
+.page-title{font-size:18px;font-weight:500;margin-bottom:3px}
+.page-sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
+.card-title{font-size:12.5px;font-weight:500;margin-bottom:10px;color:var(--text)}
+/* STAT GRID */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--bg3);border-radius:var(--r);padding:12px 14px}
+.stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.stat-val{font-size:22px;font-weight:500;font-family:var(--mono)}
+.stat-val.g{color:var(--acc)}.stat-val.b{color:var(--acc2)}.stat-val.a{color:var(--warn)}.stat-val.r{color:var(--danger)}
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{padding:8px 10px;text-align:left;font-size:10px;font-weight:500;color:var(--muted);background:var(--bg3);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.sep-row td{background:var(--bg3)!important;font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:5px 10px;border-bottom:1px solid var(--border)}
+/* FORMS */
+.inp{width:100%;padding:7px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:var(--font);font-size:12.5px;outline:none;transition:border-color .15s}
+.inp:focus{border-color:var(--acc)}
+.sel{width:100%;padding:7px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:var(--font);font-size:12.5px;outline:none}
+.sel option{background:var(--bg3)}
+.fl{font-size:10.5px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-row.col3{grid-template-columns:1fr 1fr 1fr}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-family:var(--font);transition:all .15s}
+.btn:hover{border-color:rgba(255,255,255,0.15);background:var(--bg4)}
+.btn.p{background:rgba(0,229,160,0.12);border-color:rgba(0,229,160,0.3);color:var(--acc)}
+.btn.p:hover{background:rgba(0,229,160,0.2)}
+.btn.d{background:rgba(255,79,109,0.12);border-color:rgba(255,79,109,0.3);color:var(--danger)}
+.btn.sm{padding:4px 8px;font-size:11px}
+.btn-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:6px;font-size:10.5px;font-weight:500;font-family:var(--mono)}
+.bg{background:rgba(0,229,160,0.12);color:var(--acc)}
+.bb{background:rgba(0,153,255,0.12);color:var(--acc2)}
+.bo{background:rgba(255,184,63,0.12);color:var(--warn)}
+.br{background:rgba(255,79,109,0.12);color:var(--danger)}
+.bm{background:var(--bg3);color:var(--muted)}
+/* FOURN TAGS */
+.ft{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:500;font-family:var(--mono);white-space:nowrap}
+.ft-bbs{background:rgba(0,229,160,0.1);color:var(--acc);border:1px solid rgba(0,229,160,0.2)}
+.ft-lor{background:rgba(255,79,109,0.1);color:var(--danger);border:1px solid rgba(255,79,109,0.2)}
+.ft-sod{background:rgba(255,184,63,0.1);color:var(--warn);border:1px solid rgba(255,184,63,0.2)}
+.ft-cap{background:rgba(0,153,255,0.1);color:var(--acc2);border:1px solid rgba(0,153,255,0.2)}
+.ft-pap{background:rgba(180,100,255,0.1);color:#b464ff;border:1px solid rgba(180,100,255,0.2)}
+.ft-car{background:rgba(100,180,255,0.1);color:#64b4ff;border:1px solid rgba(100,180,255,0.2)}
+/* ALERTS */
+.al{display:flex;gap:10px;padding:10px 12px;border-radius:var(--r);margin-bottom:8px;font-size:12px;align-items:flex-start}
+.al.r{background:rgba(255,79,109,0.08);border:1px solid rgba(255,79,109,0.2)}
+.al.a{background:rgba(255,184,63,0.08);border:1px solid rgba(255,184,63,0.2)}
+.al.g{background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.2)}
+.al.b{background:rgba(0,153,255,0.08);border:1px solid rgba(0,153,255,0.2)}
+.al-ti{font-weight:500;margin-bottom:2px}
+.al-tx{font-size:11px;color:var(--muted)}
+.al.r .al-ti{color:var(--danger)}.al.a .al-ti{color:var(--warn)}.al.g .al-ti{color:var(--acc)}.al.b .al-ti{color:var(--acc2)}
+/* CMP BARS */
+.cmp-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cmp-lbl{font-size:11.5px;color:var(--muted);width:120px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmp-track{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.cmp-fill{height:100%;border-radius:3px}
+.cmp-val{font-size:12px;font-weight:500;font-family:var(--mono);width:120px;flex-shrink:0}
+/* AI BOX */
+.ai-box{border-left:2px solid var(--acc);padding:10px 14px;background:rgba(0,229,160,0.05);border-radius:0 var(--r) var(--r) 0;font-size:12px;line-height:1.7;margin-top:12px;color:var(--text)}
+.ai-lbl{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--acc);opacity:.7;margin-bottom:6px}
+/* UPLOAD */
+.upload-zone{border:1.5px dashed rgba(255,255,255,0.12);border-radius:var(--r);padding:24px;text-align:center;cursor:pointer;background:var(--bg3);transition:border-color .2s}
+.upload-zone:hover{border-color:var(--acc)}
+.upload-icon{font-size:32px;margin-bottom:8px;opacity:.4}
+/* UNIT TABS */
+.ut{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.ut-btn{padding:4px 10px;border-radius:var(--r);font-size:11px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--muted);font-family:var(--mono)}
+.ut-btn.on{background:rgba(0,229,160,0.12);border-color:rgba(0,229,160,0.3);color:var(--acc)}
+/* CHIPS */
+.chip{display:inline-flex;padding:3px 9px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:11px;cursor:pointer;margin:2px;color:var(--muted)}
+.chip:hover,.chip.on{background:rgba(0,229,160,0.1);border-color:rgba(0,229,160,0.3);color:var(--acc)}
+/* DOT */
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dg{background:var(--acc)}.da{background:var(--warn)}.dr{background:var(--danger)}
+/* TOAST */
+#toast{position:fixed;bottom:16px;right:16px;background:var(--acc);color:#0e1117;padding:8px 14px;border-radius:var(--r);font-size:12px;font-weight:500;z-index:999;transform:translateY(60px);transition:transform .25s;pointer-events:none}
+#toast.show{transform:translateY(0)}
+/* MISC */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pri{color:var(--acc);font-weight:500;font-family:var(--mono)}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(0,229,160,0.2);border-top-color:var(--acc);border-radius:50%;animation:sp .6s linear infinite;margin-right:6px;vertical-align:middle}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:600px){
+  .stat-row{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .form-row.col3{grid-template-columns:1fr}
+  .g2{grid-template-columns:1fr}
+  .content{padding:14px 12px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-logo">⚓ OFFSHORE <span>Gestion achats</span></div>
+  <div class="tb-tabs" id="tabs">
+    <button class="tab on" onclick="goPage('produits')">📋 Mes produits</button>
+    <button class="tab" onclick="goPage('scan')">📷 Scanner</button>
+    <button class="tab" onclick="goPage('comparateur')">⚖️ Comparateur</button>
+    <button class="tab" onclick="goPage('alertes')" id="tab-alertes">🔔 Offres & Alertes</button>
+  </div>
+</div>
+
+<div class="body">
+<div class="content" id="app">
+<!-- pages injectées par JS -->
+</div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════
+// DONNÉES — 70 produits réels / 6 fournisseurs
+// ═══════════════════════════════════════
+const INIT_PRODS = [
+  // ── SODIMAR (tarifs préférentiels exacts)
+  {id:1, nom:"Champagne Piper-Heidsieck Brut 75cl", cat:"Champagnes & Vins", fourn:"Sodimar", ref:"PIP00003", pcb:6, ht:31.26, ttc:33.92, tva:8.5, unite:"unité", qte:1, note:"Tarif préf. Offshore · vs LP Brut 49,76€"},
+  {id:2, nom:"Champagne Piper H. On Ice Sleeve DS 75cl", cat:"Champagnes & Vins", fourn:"Sodimar", ref:"PIP07167", pcb:6, ht:35.65, ttc:38.68, tva:8.5, unite:"unité", qte:1, note:"Tarif préf. Offshore"},
+  {id:3, nom:"Champagne GH Martel Brut Prestige 75cl", cat:"Champagnes & Vins", fourn:"Sodimar", ref:"MAR01029", pcb:6, ht:20.41, ttc:22.15, tva:8.5, unite:"unité", qte:1, note:"Tarif préf. Offshore"},
+  {id:4, nom:"Champagne Besserat Bleu Brut 75cl", cat:"Champagnes & Vins", fourn:"Sodimar", ref:"BES04029", pcb:6, ht:39.28, ttc:42.62, tva:8.5, unite:"unité", qte:1, note:"Tarif préf. Offshore"},
+  {id:5, nom:"Red Bull Boisson Energisante 25cl", cat:"Softs & Eaux", fourn:"Sodimar", ref:"RED05973", pcb:24, ht:1.55, ttc:1.58, tva:2.1, unite:"litre", qte:0.25, note:"Tarif préf. Offshore"},
+  {id:6, nom:"Huile Lesieur Frial Excellence 5L", cat:"Épicerie", fourn:"Sodimar", ref:"LES30004", pcb:3, ht:15.39, ttc:15.71, tva:2.1, unite:"litre", qte:5, note:"Tarif préf. Offshore"},
+  {id:7, nom:"Vodka Smirnoff 1L 37,5%", cat:"Boissons alcool", fourn:"Sodimar", ref:"SMI42930", pcb:12, ht:20.40, ttc:24.46, tva:8.5, unite:"litre", qte:1, note:"Tarif préf. Offshore"},
+  // ── BBS / CAMPARI
+  {id:8, nom:"TR Blanc 70cl (Trois Rivières)", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"3477", pcb:6, ht:7.83, ttc:11.06, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 6,53€"},
+  {id:9, nom:"TR Blanc 100cl (Trois Rivières)", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"5281", pcb:6, ht:12.57, ttc:17.07, tva:8.5, unite:"litre", qte:1, note:"Offre 5+1 : 10,48€"},
+  {id:10, nom:"TR Cuvée de l'Océan 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"3243", pcb:6, ht:13.15, ttc:16.58, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 10,96€"},
+  {id:11, nom:"TR VO Cuvée du Moulin 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4821", pcb:6, ht:19.29, ttc:23.31, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 16,08€"},
+  {id:12, nom:"TR VSOP Réserve Spéciale 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4645", pcb:6, ht:30.90, ttc:36.19, tva:8.5, unite:"litre", qte:0.7, note:""},
+  {id:13, nom:"TR XO 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"5144", pcb:6, ht:51.32, ttc:59.00, tva:8.5, unite:"litre", qte:0.7, note:""},
+  {id:14, nom:"TR Cellar Reserve 4 ans 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4971", pcb:6, ht:29.36, ttc:34.48, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 24,47€"},
+  {id:15, nom:"La Mauny Blanc 100cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4325", pcb:6, ht:10.68, ttc:15.23, tva:8.5, unite:"litre", qte:1, note:"Offre 5+1 : 8,90€"},
+  {id:16, nom:"La Mauny VSOP 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4180", pcb:6, ht:26.73, ttc:31.56, tva:8.5, unite:"litre", qte:0.7, note:""},
+  {id:17, nom:"La Mauny Punch Ananas 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4370", pcb:6, ht:11.54, ttc:14.23, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 9,62€"},
+  {id:18, nom:"La Mauny Schrubb Orange 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4519", pcb:6, ht:11.54, ttc:14.23, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 9,62€"},
+  {id:19, nom:"La Mauny Spiced 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4730", pcb:6, ht:11.43, ttc:14.57, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 7,62€"},
+  {id:20, nom:"Aperol 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4984", pcb:6, ht:15.47, ttc:16.79, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 12,89€"},
+  {id:21, nom:"Campari 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4983", pcb:6, ht:15.28, ttc:17.70, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 12,73€"},
+  {id:22, nom:"Grand Marnier 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4988", pcb:6, ht:33.84, ttc:38.49, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 28,20€"},
+  {id:23, nom:"Skyy Vodka 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4985", pcb:6, ht:17.26, ttc:20.47, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 14,38€"},
+  {id:24, nom:"Bulldog London Dry Gin 70cl", cat:"Boissons alcool", fourn:"BBS / Campari", ref:"4986", pcb:6, ht:21.13, ttc:24.71, tva:8.5, unite:"litre", qte:0.7, note:"Offre 5+1 : 17,61€"},
+  {id:25, nom:"Pulco Citron Vert 70cl", cat:"Softs & Eaux", fourn:"BBS / Campari", ref:"4233", pcb:null, ht:4.59, ttc:4.98, tva:2.1, unite:"litre", qte:0.7, note:"Offre 5+1 : 3,82€"},
+  {id:26, nom:"Laurent-Perrier La Cuvée Brut 75cl", cat:"Champagnes & Vins", fourn:"BBS / Campari", ref:"4262", pcb:6, ht:49.76, ttc:53.99, tva:8.5, unite:"unité", qte:1, note:"Prix caisse : 40,55€"},
+  {id:27, nom:"Laurent-Perrier Cuvée Rosé 75cl", cat:"Champagnes & Vins", fourn:"BBS / Campari", ref:"330", pcb:6, ht:87.03, ttc:94.43, tva:8.5, unite:"unité", qte:1, note:"Offre 4+2 : 58,02€"},
+  {id:28, nom:"Collet Brut 75cl", cat:"Champagnes & Vins", fourn:"BBS / Campari", ref:"3532", pcb:6, ht:32.63, ttc:35.40, tva:8.5, unite:"unité", qte:1, note:"Offre 5+1 : 27,19€"},
+  {id:29, nom:"La Casada Brut Prosecco 75cl", cat:"Champagnes & Vins", fourn:"BBS / Campari", ref:"5304", pcb:6, ht:8.84, ttc:9.59, tva:8.5, unite:"unité", qte:1, note:"Offre 5+1 : 7,37€"},
+  {id:30, nom:"Miraval Rosé 75cl", cat:"Champagnes & Vins", fourn:"BBS / Campari", ref:"5311", pcb:6, ht:17.70, ttc:19.20, tva:8.5, unite:"unité", qte:1, note:"Offre 5+1 : 14,75€"},
+  // ── BRASSERIE LORRAINE
+  {id:31, nom:"Lorraine Blonde PAC 6x33cl x4", cat:"Bières", fourn:"Brasserie Lorraine", ref:"17259000", pcb:null, ht:25.01, ttc:null, tva:null, unite:"unité", qte:1, note:"Remise 20% sur 31,26€"},
+  {id:32, nom:"Lorraine Blonde PAC 6x25cl x4", cat:"Bières", fourn:"Brasserie Lorraine", ref:"17231000", pcb:null, ht:19.27, ttc:null, tva:null, unite:"unité", qte:1, note:"Remise 20% sur 24,09€"},
+  {id:33, nom:"Lorraine Blonde Fût 20L", cat:"Bières", fourn:"Brasserie Lorraine", ref:"17263000", pcb:null, ht:61.91, ttc:null, tva:null, unite:"litre", qte:20, note:"Remise 8% sur 67,29€"},
+  {id:34, nom:"Heineken Fût 20L", cat:"Bières", fourn:"Brasserie Lorraine", ref:"53263000", pcb:null, ht:71.28, ttc:null, tva:null, unite:"litre", qte:20, note:"Remise 17% sur 85,88€"},
+  {id:35, nom:"Heineken CAN 4x6x33cl", cat:"Bières", fourn:"Brasserie Lorraine", ref:"53218000", pcb:null, ht:23.83, ttc:null, tva:null, unite:"unité", qte:1, note:"Remise 24% sur 31,35€"},
+  {id:36, nom:"Desperados Orig. PAC 3x33cl x8", cat:"Bières", fourn:"Brasserie Lorraine", ref:"49637000", pcb:null, ht:36.62, ttc:null, tva:null, unite:"unité", qte:1, note:"Remise 24% sur 48,19€"},
+  {id:37, nom:"Affligem Blonde Fût 20L", cat:"Bières", fourn:"Brasserie Lorraine", ref:"53363010", pcb:null, ht:82.23, ttc:null, tva:null, unite:"litre", qte:20, note:"Remise 10% sur 91,37€"},
+  // ── CAP CRÉOLE
+  {id:38, nom:"Rillettes de Marlin 1kg", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"kg", qte:1, note:"Philippe 0696 322 451"},
+  {id:39, nom:"Rillettes de Thon au poivre vert 1kg", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"kg", qte:1, note:"Philippe 0696 322 451"},
+  {id:40, nom:"Rillettes de Thazard au colombo 1kg", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"kg", qte:1, note:"Philippe 0696 322 451"},
+  {id:41, nom:"Rillettes de Daurade citron/wasabi 1kg", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"kg", qte:1, note:"Philippe 0696 322 451"},
+  {id:42, nom:"Crevettes Black Tiger 13/15 boîte 800g", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:21.20, ttc:null, tva:null, unite:"kg", qte:0.8, note:"Livraison Le François Mar & Ven"},
+  {id:43, nom:"Magret canard fumé 500g", cat:"Viandes & Volailles", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"kg", qte:0.5, note:"Nouveauté Cap Créole"},
+  {id:44, nom:"Crabes farcis (par 16)", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"unité", qte:16, note:"Philippe 0696 322 451"},
+  {id:45, nom:"Farce de Crabe / Colin / Lambis 1kg", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"kg", qte:1, note:"Philippe 0696 322 451"},
+  {id:46, nom:"Pâte à Accras morue/daurade 1kg", cat:"Poissons & Fruits de mer", fourn:"Cap Créole", ref:null, pcb:null, ht:null, ttc:null, tva:null, unite:"kg", qte:1, note:"Philippe 0696 322 451"},
+  // ── PRO À PRO
+  {id:47, nom:"Queues crevettes déco. 16/20P 1kg", cat:"Poissons & Fruits de mer", fourn:"Pro à Pro", ref:"164789", pcb:null, ht:16.50, ttc:null, tva:null, unite:"kg", qte:1, note:"Conditions exclusives Offshore"},
+  {id:48, nom:"Poulpe entier nettoyé 5kg", cat:"Poissons & Fruits de mer", fourn:"Pro à Pro", ref:"167464", pcb:null, ht:12.00, ttc:null, tva:null, unite:"kg", qte:1, note:"12€/kg · exclusif"},
+  {id:49, nom:"Steak de marlin 110/140g 5kg", cat:"Poissons & Fruits de mer", fourn:"Pro à Pro", ref:"50164", pcb:null, ht:10.95, ttc:null, tva:null, unite:"kg", qte:1, note:"10,95€/kg · exclusif"},
+  {id:50, nom:"Magret canard s/v 300g+ 5kg", cat:"Viandes & Volailles", fourn:"Pro à Pro", ref:"107743", pcb:null, ht:16.65, ttc:null, tva:null, unite:"kg", qte:1, note:"16,65€/kg · exclusif"},
+  {id:51, nom:"Burrata 34% 100g", cat:"Frais & Surgelés", fourn:"Pro à Pro", ref:"165581", pcb:null, ht:2.99, ttc:null, tva:null, unite:"100g", qte:1, note:"2,99€/pièce · exclusif"},
+  {id:52, nom:"Entrecôte bœuf UE 300g 5kg", cat:"Viandes & Volailles", fourn:"Pro à Pro", ref:"166868", pcb:null, ht:21.00, ttc:null, tva:null, unite:"kg", qte:1, note:"21€/kg · exclusif"},
+  {id:53, nom:"Purée mangue réfrigérée 1kg", cat:"Frais & Surgelés", fourn:"Pro à Pro", ref:"52881", pcb:null, ht:11.95, ttc:null, tva:null, unite:"kg", qte:1, note:"11,95€/kg · exclusif"},
+  {id:54, nom:"Purée fruit de la passion 1kg", cat:"Frais & Surgelés", fourn:"Pro à Pro", ref:"52892", pcb:null, ht:27.14, ttc:null, tva:null, unite:"kg", qte:1, note:"27,14€/kg · exclusif"},
+  {id:55, nom:"Mayonnaise haute fermeté 5L", cat:"Condiments", fourn:"Pro à Pro", ref:"166323", pcb:null, ht:16.50, ttc:null, tva:null, unite:"litre", qte:5, note:"Conditions exclusives"},
+  {id:56, nom:"Crème fraîche UHT 35% 1L", cat:"Frais & Surgelés", fourn:"Pro à Pro", ref:"40062", pcb:null, ht:5.99, ttc:null, tva:null, unite:"litre", qte:1, note:"5,99€ · exclusif"},
+  // ── CAREX MADIGOURMET
+  {id:57, nom:"Crevette entière Black Tiger 13/15 Madigourmet", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_311708", pcb:null, ht:17.86, ttc:null, tva:null, unite:"kg", qte:1, note:"4x800g · Sophie 0696 16 98 00"},
+  {id:58, nom:"Crevette queue 16/20 décortiquée", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_313345", pcb:null, ht:13.64, ttc:null, tva:null, unite:"kg", qte:1, note:"25x320g net 8kg"},
+  {id:59, nom:"Crevette queue 13/15 décortiquée", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_313307", pcb:null, ht:14.39, ttc:null, tva:null, unite:"kg", qte:1, note:"25x320g net 8kg"},
+  {id:60, nom:"Marlin steak 110/140/160g vrac 5kg", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_422200", pcb:null, ht:12.61, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 5kg Indonésie"},
+  {id:61, nom:"Thazard pavés 110/140/160g vrac 5kg", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_432855", pcb:null, ht:14.04, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 5kg"},
+  {id:62, nom:"Vivaneau darne 12x800g", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_614131", pcb:null, ht:12.82, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 9.6kg"},
+  {id:63, nom:"Vivaneau écaillé ABCHEE Guyane", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_600100", pcb:null, ht:13.65, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 10kg"},
+  {id:64, nom:"Saumon fumé plaque 1kg Norvège", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_584100", pcb:null, ht:25.65, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 10kg"},
+  {id:65, nom:"Saumon Pavé 180/200g vrac 5kg", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_584155", pcb:null, ht:22.24, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 5kg Chili"},
+  {id:66, nom:"Langouste queue Caraïbes 25x240g", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_323224", pcb:null, ht:70.21, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 6kg"},
+  {id:67, nom:"Lambis 15x800g Jamaïque", cat:"Poissons & Fruits de mer", fourn:"Carex Madigourmet", ref:"N_242105", pcb:null, ht:29.67, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 12kg"},
+  {id:68, nom:"Bœuf entrecôte entière VBF 4/5kg", cat:"Viandes & Volailles", fourn:"Carex Madigourmet", ref:"N_BOE.ENT.102", pcb:null, ht:21.50, ttc:null, tva:null, unite:"kg", qte:1, note:"Box 19kg"},
+  {id:69, nom:"Canard magret IGP Soulard 350g", cat:"Viandes & Volailles", fourn:"Carex Madigourmet", ref:"N_CAN.MAG.100", pcb:null, ht:18.56, ttc:null, tva:null, unite:"kg", qte:1, note:"15x350g box 5.25kg"},
+  {id:70, nom:"Banane plantain rondelle préfrite", cat:"Frais & Surgelés", fourn:"Carex Madigourmet", ref:"N_718104", pcb:null, ht:4.10, ttc:null, tva:null, unite:"kg", qte:1, note:"4x2.72kg Vietnam"},
+];
+
+const CMP_DB = {
+  "red bull":    {n:"Red Bull 25cl", u:"litre", rows:[{f:"Sodimar",p:1.55,q:0.25},{f:"Grossiste",p:1.75,q:0.25},{f:"GMS",p:1.99,q:0.25}]},
+  "smirnoff":   {n:"Vodka Smirnoff 1L", u:"litre", rows:[{f:"Sodimar",p:20.40,q:1},{f:"Skyy BBS alt.",p:17.26,q:0.7},{f:"GMS",p:24.99,q:1}]},
+  "piper":      {n:"Piper-Heidsieck Brut 75cl", u:"unité", rows:[{f:"Sodimar",p:31.26,q:1},{f:"BBS LP Brut",p:49.76,q:1},{f:"Cave/détail",p:54.99,q:1}]},
+  "martel":     {n:"GH Martel Brut 75cl", u:"unité", rows:[{f:"Sodimar",p:20.41,q:1},{f:"Grossiste",p:26.00,q:1},{f:"GMS",p:29.90,q:1}]},
+  "besserat":   {n:"Besserat Bleu Brut 75cl", u:"unité", rows:[{f:"Sodimar",p:39.28,q:1},{f:"Grossiste",p:45.00,q:1},{f:"Cave",p:49.00,q:1}]},
+  "rhum blanc": {n:"Rhum blanc 70cl", u:"litre", rows:[{f:"BBS 5+1",p:6.53,q:0.7},{f:"BBS unité",p:7.83,q:0.7},{f:"GMS",p:12.00,q:0.7}]},
+  "aperol":     {n:"Aperol 70cl", u:"litre", rows:[{f:"BBS 5+1",p:12.89,q:0.7},{f:"BBS unité",p:15.47,q:0.7},{f:"GMS",p:17.99,q:0.7}]},
+  "campari":    {n:"Campari 70cl", u:"litre", rows:[{f:"BBS 5+1",p:12.73,q:0.7},{f:"BBS unité",p:15.28,q:0.7},{f:"GMS",p:18.50,q:0.7}]},
+  "lp brut":    {n:"Laurent-Perrier Brut 75cl", u:"unité", rows:[{f:"BBS caisse",p:40.55,q:1},{f:"BBS unité",p:49.76,q:1},{f:"Cave",p:54.99,q:1}]},
+  "heineken":   {n:"Heineken Fût 20L", u:"litre", rows:[{f:"Brasserie Lorraine CHR",p:71.28,q:20},{f:"Grossiste",p:82.00,q:20},{f:"GMS",p:89.90,q:20}]},
+  "lorraine":   {n:"Lorraine Blonde 6x33cl x4", u:"unité", rows:[{f:"Brasserie Lorraine CHR",p:25.01,q:1},{f:"GMS",p:31.00,q:1},{f:"Détail",p:36.00,q:1}]},
+  "crevette":   {n:"Crevette queue 16/20", u:"kg", rows:[{f:"Carex",p:13.64,q:1},{f:"Pro à Pro",p:16.50,q:1},{f:"Cap Créole BT 800g",p:21.20,q:0.8}]},
+  "poulpe":     {n:"Poulpe entier", u:"kg", rows:[{f:"Pro à Pro",p:12.00,q:1},{f:"Carex estimé",p:14.00,q:1},{f:"Marché",p:16.00,q:1}]},
+  "marlin":     {n:"Marlin steak", u:"kg", rows:[{f:"Pro à Pro",p:10.95,q:1},{f:"Carex",p:12.61,q:1},{f:"Cap Créole estimé",p:13.00,q:1}]},
+  "saumon":     {n:"Saumon fumé plaque 1kg", u:"kg", rows:[{f:"Carex Norvège",p:25.65,q:1},{f:"Grossiste",p:28.00,q:1},{f:"GMS",p:32.00,q:1}]},
+  "huile":      {n:"Huile friture 5L", u:"litre", rows:[{f:"Sodimar Lesieur",p:15.39,q:5},{f:"Promocash",p:17.50,q:5},{f:"GMS",p:19.00,q:5}]},
+  "burrata":    {n:"Burrata 100g", u:"100g", rows:[{f:"Pro à Pro",p:2.99,q:1},{f:"Grossiste",p:3.80,q:1},{f:"GMS",p:4.50,q:1}]},
+  "canard":     {n:"Magret canard", u:"kg", rows:[{f:"Pro à Pro",p:16.65,q:1},{f:"Carex Soulard",p:18.56,q:1},{f:"GMS",p:22.00,q:1}]},
+  "vivaneau":   {n:"Vivaneau", u:"kg", rows:[{f:"Carex écaillé Guyane",p:13.65,q:1},{f:"Carex darne",p:12.82,q:1},{f:"Marché",p:18.00,q:1}]},
+  "langouste":  {n:"Langouste queue Caraïbes", u:"kg", rows:[{f:"Carex",p:70.21,q:1},{f:"Marché",p:90.00,q:1},{f:"GMS",p:110.00,q:1}]},
+};
+
+const CATS = ["Boissons alcool","Bières","Champagnes & Vins","Softs & Eaux","Poissons & Fruits de mer","Viandes & Volailles","Frais & Surgelés","Épicerie","Condiments"];
+const FOURNS = ["BBS / Campari","Brasserie Lorraine","Sodimar","Cap Créole","Pro à Pro","Carex Madigourmet","Promocash","Leclerc","Carrefour","Megastock","Autre"];
+const UNITS = ["unité","litre","100ml","kg","100g","portion"];
+const FOURN_CLS = {"BBS / Campari":"ft-bbs","Brasserie Lorraine":"ft-lor","Sodimar":"ft-sod","Cap Créole":"ft-cap","Pro à Pro":"ft-pap","Carex Madigourmet":"ft-car"};
+
+// ═══════════════════════════════════════
+// STATE — localStorage
+// ═══════════════════════════════════════
+let STATE = {
+  prods: [], page: "produits", catFilter:"all", fournFilter:"all", search:"",
+  cmpQ:"", cmpMode:"unite", cmpRes:null, extraRows:[],
+  scanType:"catalogue", scanItems:[], scanLoading:false,
+  showAdd:false, editId:null, inlineId:null,
+  np:{nom:"",cat:CATS[0],fourn:FOURNS[0],ref:"",unite:"unité",qte:"1",ht:"",ttc:"",note:""},
+  newRow:{f:"",p:"",q:"1"},
+};
+
+function loadState(){
+  try {
+    const s = localStorage.getItem("offshore_prods");
+    STATE.prods = s ? JSON.parse(s) : JSON.parse(JSON.stringify(INIT_PRODS));
+  } catch(e) {
+    STATE.prods = JSON.parse(JSON.stringify(INIT_PRODS));
+  }
+}
+function saveProds(){
+  try { localStorage.setItem("offshore_prods", JSON.stringify(STATE.prods)); } catch(e){}
+}
+
+// ═══════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2400);
+}
+function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function prixParUnite(prix, qte, mode){
+  if(!prix||!qte) return null;
+  const m={unite:prix,litre:prix/qte,kg:prix/qte,"100g":prix*100/qte,"100ml":prix*100/qte,portion:prix};
+  return (m[mode]||prix);
+}
+function unitLabel(m){return{unite:"€/u",litre:"€/L",kg:"€/kg","100g":"€/100g","100ml":"€/100mL",portion:"€/port"}[m]||"€";}
+function ftCls(f){ return FOURN_CLS[f]||""; }
+function fmtHT(v){ return v!=null?v.toFixed(2)+"€":"—"; }
+function goPage(p){
+  STATE.page=p; STATE.showAdd=false; STATE.inlineId=null;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("on"));
+  const tabs=document.querySelectorAll(".tab");
+  const idx={produits:0,scan:1,comparateur:2,alertes:3};
+  if(tabs[idx[p]]) tabs[idx[p]].classList.add("on");
+  updateAlertBadge(); render();
+}
+function updateAlertBadge(){
+  const n=STATE.prods.filter(p=>!p.ht).length;
+  const t=document.getElementById("tab-alertes");
+  if(t) t.innerHTML=`🔔 Offres & Alertes${n>0?` <span class="badge br">${n}</span>`:""}`;
+}
+
+// ═══════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════
+function render(){
+  const app=document.getElementById("app");
+  if(!app) return;
+  if(STATE.page==="produits") app.innerHTML=renderProduits();
+  else if(STATE.page==="scan") app.innerHTML=renderScan();
+  else if(STATE.page==="comparateur") app.innerHTML=renderCmp();
+  else if(STATE.page==="alertes") app.innerHTML=renderAlertes();
+  bindEvents();
+}
+
+// ─── PAGE PRODUITS ───
+function renderProduits(){
+  const fp = STATE.prods.filter(p=>
+    (STATE.catFilter==="all"||p.cat===STATE.catFilter)&&
+    (STATE.fournFilter==="all"||p.fourn===STATE.fournFilter)&&
+    (!STATE.search||p.nom.toLowerCase().includes(STATE.search.toLowerCase())||
+     (p.ref||"").toLowerCase().includes(STATE.search.toLowerCase()))
+  );
+
+  let form="";
+  if(STATE.showAdd){
+    const n=STATE.np;
+    form=`<div class="card" style="border-color:rgba(0,229,160,0.3);margin-bottom:12px">
+      <div class="card-title">${STATE.editId?"Modifier le produit":"Nouveau produit"}</div>
+      <div class="form-row">
+        <div><div class="fl">Nom *</div><input class="inp" id="np-nom" value="${esc(n.nom)}" placeholder="Ex: Red Bull 25cl"></div>
+        <div><div class="fl">Catégorie</div><select class="sel" id="np-cat">${CATS.map(c=>`<option${c===n.cat?" selected":""}>${esc(c)}</option>`).join("")}</select></div>
+      </div>
+      <div class="form-row">
+        <div><div class="fl">Fournisseur</div><select class="sel" id="np-fourn">${FOURNS.map(f=>`<option${f===n.fourn?" selected":""}>${esc(f)}</option>`).join("")}</select></div>
+        <div><div class="fl">Référence fournisseur</div><input class="inp" id="np-ref" value="${esc(n.ref)}" placeholder="Ex: PIP00003"></div>
+      </div>
+      <div class="form-row col3">
+        <div><div class="fl">Prix HT (€)</div><input class="inp" id="np-ht" type="number" step="0.01" value="${n.ht}" placeholder="0.00"></div>
+        <div><div class="fl">Prix TTC (€)</div><input class="inp" id="np-ttc" type="number" step="0.01" value="${n.ttc}" placeholder="0.00"></div>
+        <div><div class="fl">PCB</div><input class="inp" id="np-pcb" type="number" value="${n.pcb||""}" placeholder="6"></div>
+      </div>
+      <div class="form-row">
+        <div><div class="fl">Unité de comparaison</div><select class="sel" id="np-unite">${UNITS.map(u=>`<option${u===n.unite?" selected":""}>${u}</option>`).join("")}</select></div>
+        <div><div class="fl">Quantité pour ce prix</div><input class="inp" id="np-qte" type="number" step="0.01" value="${n.qte}" placeholder="1"></div>
+      </div>
+      <div style="margin-bottom:10px"><div class="fl">Notes / offres promotionnelles</div><input class="inp" id="np-note" value="${esc(n.note)}" placeholder="Ex: Offre 5+1 : 10,48€ — valable fév 2027"></div>
+      <div class="btn-row">
+        <button class="btn p" onclick="saveProd()">✓ Enregistrer</button>
+        <button class="btn" onclick="STATE.showAdd=false;render()">Annuler</button>
+      </div>
+    </div>`;
+  }
+
+  const rows = fp.map(p=>{
+    if(STATE.inlineId===p.id){
+      return `<tr>
+        <td colspan="9"><div style="display:flex;gap:8px;align-items:center;padding:4px 0">
+          <input class="inp" id="il-ht" type="number" step="0.01" value="${p.ht||""}" placeholder="Prix HT €" style="width:120px">
+          <input class="inp" id="il-ttc" type="number" step="0.01" value="${p.ttc||""}" placeholder="TTC €" style="width:110px">
+          <button class="btn p sm" onclick="saveInline(${p.id})">✓</button>
+          <button class="btn sm" onclick="STATE.inlineId=null;render()">✕</button>
+        </div></td>
+      </tr>`;
+    }
+    const pu = prixParUnite(p.ht,p.qte,p.unite);
+    const puStr = pu ? `<span style="color:var(--acc2);font-family:var(--mono);font-size:11px">${pu.toFixed(2)}${unitLabel(p.unite)}</span>` : "—";
+    const htStr = p.ht ? `<span class="pri">${p.ht.toFixed(2)}€</span>` : `<span class="badge bo">À saisir</span>`;
+    const ttcStr = p.ttc ? `<span style="color:var(--muted);font-family:var(--mono);font-size:11px">${p.ttc.toFixed(2)}€</span>` : "—";
+    return `<tr>
+      <td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.nom)}</td>
+      <td style="font-size:10px;color:var(--muted);font-family:var(--mono)">${esc(p.ref||"—")}</td>
+      <td><span class="ft ${ftCls(p.fourn)}">${esc(p.fourn)}</span></td>
+      <td>${htStr}</td>
+      <td>${ttcStr}</td>
+      <td style="font-size:11px;color:var(--muted);font-family:var(--mono)">${p.pcb||"—"}</td>
+      <td>${puStr}</td>
+      <td style="font-size:11px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.note||"")}</td>
+      <td><div class="btn-row" style="gap:3px">
+        <button class="btn sm" onclick="startInline(${p.id})" title="Modifier prix">✏</button>
+        <button class="btn sm" onclick="startEdit(${p.id})" title="Modifier tout">⚙</button>
+        <button class="btn d sm" onclick="delProd(${p.id})" title="Supprimer">✕</button>
+      </div></td>
+    </tr>`;
+  }).join("");
+
+  return `<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:10px;flex-wrap:wrap">
+    <div>
+      <div class="page-title">Mes produits 📋</div>
+      <div class="page-sub">${STATE.prods.length} produits · 6 fournisseurs · sauvegardé sur cet appareil</div>
+    </div>
+    <button class="btn p" onclick="openAdd()">+ Ajouter un produit</button>
+  </div>
+  ${form}
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center">
+    <input class="inp" id="srch" placeholder="Rechercher…" value="${esc(STATE.search)}" oninput="STATE.search=this.value;render()" style="width:160px">
+    <select class="sel" id="ff" style="width:160px" onchange="STATE.fournFilter=this.value;render()">
+      <option value="all"${STATE.fournFilter==="all"?" selected":""}>Tous fournisseurs</option>
+      ${FOURNS.map(f=>`<option value="${esc(f)}"${STATE.fournFilter===f?" selected":""}>${esc(f)}</option>`).join("")}
+    </select>
+    <select class="sel" id="cf" style="width:160px" onchange="STATE.catFilter=this.value;render()">
+      <option value="all"${STATE.catFilter==="all"?" selected":""}>Toutes catégories</option>
+      ${CATS.map(c=>`<option value="${esc(c)}"${STATE.catFilter===c?" selected":""}>${esc(c)}</option>`).join("")}
+    </select>
+    <span style="font-size:11px;color:var(--muted)">${fp.length} résultats</span>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Produit</th><th>Réf.</th><th>Fournisseur</th>
+        <th>Prix HT</th><th>TTC</th><th>PCB</th>
+        <th>Prix/unité</th><th>Notes</th><th></th>
+      </tr></thead>
+      <tbody>${rows||`<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--muted)">Aucun produit — <button class="btn sm" onclick="openAdd()">+ Ajouter</button></td></tr>`}</tbody>
+    </table>
+  </div>`;
+}
+
+// ─── PAGE SCAN ───
+function renderScan(){
+  let resultTable="";
+  if(STATE.scanLoading){
+    resultTable=`<div class="card" style="text-align:center;padding:30px">
+      <span class="spin"></span><span style="color:var(--muted)">Analyse IA en cours… patientez</span>
+    </div>`;
+  } else if(STATE.scanItems.length>0){
+    const isFact=STATE.scanItems[0]&&STATE.scanItems[0].prixUnit!==undefined;
+    const rows=STATE.scanItems.map((it,i)=>{
+      const nom=esc((it.produit||it.nom||"").substring(0,60));
+      const ref=esc(it.ref||"—");
+      const px=isFact?it.prixUnit:it.prix;
+      const pxStr=px?px.toFixed(2)+"€":"—";
+      const c3=isFact?it.qte:(it.format||it.unite||"—");
+      const c4=isFact?(it.total?it.total.toFixed(2)+"€":"—"):(it.note||"—");
+      return `<tr>
+        <td style="font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${nom}</td>
+        <td style="font-size:10px;color:var(--muted);font-family:var(--mono)">${ref}</td>
+        <td style="font-family:var(--mono);font-size:11px">${esc(String(c3))}</td>
+        <td class="pri">${pxStr}</td>
+        <td style="font-size:11px;color:var(--muted)">${esc(String(c4))}</td>
+        <td style="font-size:11px;color:var(--muted)">${esc(it.fourn||"—")}</td>
+        <td><button class="btn p sm" onclick="importScan(${i})">+ Importer</button></td>
+      </tr>`;
+    }).join("");
+    resultTable=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:12.5px;font-weight:500">${STATE.scanItems.length} produits extraits</span>
+      <button class="btn p sm" onclick="importAll()">⬆ Tout importer</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>Produit extrait</th><th>Réf.</th>
+          ${isFact?"<th>Qté</th><th>Prix unit. HT</th><th>Total</th>":"<th>Format</th><th>Prix HT</th><th>Offre/note</th>"}
+          <th>Fournisseur</th><th></th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  }
+
+  return `<div class="page-title">Scanner catalogue / facture 📷</div>
+  <div class="page-sub">Chargez une image JPEG/PNG ou un PDF — l'IA extrait automatiquement tous les produits et prix</div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-title">Type de document</div>
+    <div class="btn-row" style="margin-bottom:14px">
+      <button class="btn${STATE.scanType==="catalogue"?" p":""}" onclick="STATE.scanType='catalogue';render()">📄 Catalogue fournisseur</button>
+      <button class="btn${STATE.scanType==="facture"?" p":""}" onclick="STATE.scanType='facture';render()">🧾 Facture fournisseur</button>
+    </div>
+    <div class="upload-zone" onclick="document.getElementById('file-inp').click()">
+      <div class="upload-icon">☁</div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:4px">Cliquez ici ou déposez votre fichier</div>
+      <div style="font-size:11px;color:var(--muted)">JPEG · PNG · PDF — jusqu'à 20 Mo</div>
+      <input type="file" id="file-inp" accept=".jpg,.jpeg,.png,.pdf" style="display:none" onchange="handleScan(this.files)">
+    </div>
+  </div>
+  ${resultTable}
+  ${!STATE.scanLoading&&STATE.scanItems.length===0?`<div class="ai-box">
+    <div class="ai-lbl">Comment ça marche</div>
+    Prenez en photo ou chargez un PDF de catalogue BBS, Carex, Sodimar, Promocash… ou une facture fournisseur.
+    L'IA lit l'image et extrait chaque produit avec sa référence et son prix HT.
+    Cliquez <strong>+ Importer</strong> sur chaque ligne pour mettre à jour votre base produits — le prix de référence est mis à jour si le produit existe déjà.
+  </div>`:""}`;
+}
+
+// ─── PAGE COMPARATEUR ───
+function renderCmp(){
+  const sugg=["Red Bull","Smirnoff","Piper","GH Martel","Aperol","Campari","Rhum blanc","Heineken","Lorraine","Crevette","Poulpe","Marlin","Saumon","Huile","Burrata","Canard","Vivaneau","Langouste"];
+  const modeMap={unite:"à l'unité",litre:"au litre",kg:"au kg","100g":"aux 100g","100ml":"aux 100mL"};
+
+  let bars="";
+  let aiBox="";
+  if(STATE.cmpRes){
+    const allRows=[...STATE.cmpRes.rows,...STATE.extraRows];
+    const vals=allRows.map(r=>prixParUnite(r.p,r.q,STATE.cmpMode));
+    const mx=Math.max(...vals), mn=Math.min(...vals);
+    const lbl=unitLabel(STATE.cmpMode);
+    bars=allRows.map((r,i)=>{
+      const v=vals[i];
+      const pct=10+((v-mn)/(mx-mn+0.01))*65;
+      const isBest=v===mn; const isWorst=v===mx;
+      const col=isBest?"var(--acc)":isWorst?"var(--danger)":"var(--acc2)";
+      return `<div class="cmp-bar">
+        <span class="cmp-lbl">${esc(r.f)}</span>
+        <div class="cmp-track"><div class="cmp-fill" style="width:${pct}%;background:${col}"></div></div>
+        <span class="cmp-val" style="color:${col}">${v.toFixed(2)}${lbl}${isBest?` <span class="badge bg" style="font-size:9px">✓ moins cher</span>`:""}</span>
+      </div>`;
+    }).join("");
+    if(mn<mx){
+      const bestF=allRows[vals.indexOf(mn)].f;
+      const eco=((mx-mn)/mx*100).toFixed(0);
+      aiBox=`<div class="ai-box">
+        <div class="ai-lbl">Recommandation</div>
+        Moins cher : <strong>${esc(bestF)}</strong> à <strong>${mn.toFixed(2)}${lbl}</strong>.
+        Économie vs le plus cher : <strong>${eco}%</strong>.
+      </div>`;
+    }
+  }
+
+  return `<div class="page-title">Comparateur de prix ⚖️</div>
+  <div class="page-sub">Comparez à l'unité · au litre · au kg · aux 100g · aux 100mL</div>
+  <div class="card">
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <input class="inp" id="cmp-inp" value="${esc(STATE.cmpQ)}" placeholder="Nom d'un produit ou mot-clé…" oninput="STATE.cmpQ=this.value" onkeydown="if(event.key==='Enter')runCmp()" style="flex:1">
+      <button class="btn p" onclick="runCmp()">Comparer</button>
+    </div>
+    <div style="margin-bottom:12px">${sugg.map(s=>`<span class="chip" onclick="STATE.cmpQ='${s}';STATE.extraRows=[];runCmp()">${s}</span>`).join("")}</div>
+    <div class="ut">${Object.entries(modeMap).map(([m,l])=>`<button class="ut-btn${STATE.cmpMode===m?" on":""}" onclick="STATE.cmpMode='${m}';if(STATE.cmpRes)runCmp()">${l}</button>`).join("")}</div>
+  </div>
+  ${STATE.cmpRes?`<div class="card">
+    <div class="card-title" style="margin-bottom:12px">${esc(STATE.cmpRes.n)} — comparaison ${modeMap[STATE.cmpMode]}</div>
+    ${bars}
+    ${aiBox}
+  </div>
+  <div class="card">
+    <div class="card-title">+ Ajouter un prix vu ailleurs</div>
+    <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+      <div style="flex:1.5;min-width:120px"><div class="fl">Enseigne / fournisseur</div><input class="inp" id="nr-f" value="${esc(STATE.newRow.f)}" placeholder="Ex: Leclerc"></div>
+      <div style="width:100px"><div class="fl">Prix HT (€)</div><input class="inp" id="nr-p" type="number" step="0.01" value="${STATE.newRow.p}" placeholder="0.00"></div>
+      <div style="width:90px"><div class="fl">Qté (L/kg/u)</div><input class="inp" id="nr-q" type="number" step="0.01" value="${STATE.newRow.q}" placeholder="1"></div>
+      <button class="btn p" onclick="addExtraRow()">Ajouter</button>
+    </div>
+    ${STATE.extraRows.length>0?`<div style="margin-top:8px;font-size:11px;color:var(--muted)">${STATE.extraRows.length} prix ajouté(s) manuellement <button class="btn sm" onclick="STATE.extraRows=[];runCmp()" style="margin-left:8px">Effacer</button></div>`:""}
+  </div>`:
+  `<div class="ai-box">
+    <div class="ai-lbl">Comment utiliser</div>
+    Cliquez sur une suggestion ou tapez un mot-clé, puis choisissez l'unité de comparaison (litre, kg, 100g…).
+    Tous vos fournisseurs sont comparés. Ajoutez manuellement un prix vu en promo pour l'inclure dans la comparaison.
+  </div>`}`;
+}
+
+// ─── PAGE ALERTES ───
+function renderAlertes(){
+  const sansPrix=STATE.prods.filter(p=>!p.ht);
+  const offres=[
+    {c:"g",ti:"BBS — TR Blanc 100cl · Offre 5+1 offert",tx:"10,48€ HT vs 12,57€ unité · Économie 17% · Valable jusqu'en fév 2027"},
+    {c:"g",ti:"BBS — La Mauny Punch/Schrubb · Offre 5+1",tx:"9,62€ HT vs 11,54€ unité · Valable jusqu'en fév 2027"},
+    {c:"g",ti:"BBS — Laurent-Perrier Rosé · 4 achetés + 2 offerts",tx:"58,02€ HT vs 87,03€ unité · Économie 33% · Valable jusqu'en fév 2027"},
+    {c:"g",ti:"Sodimar — Piper-Heidsieck Brut à 31,26€ HT",tx:"REF PIP00003 · PCB 6 · vs LP Brut BBS à 49,76€ · Tarif préférentiel Offshore"},
+    {c:"g",ti:"Sodimar — GH Martel Brut Prestige à 20,41€ HT",tx:"REF MAR01029 · Le moins cher de votre sélection champagnes"},
+    {c:"b",ti:"Cap Créole — Livraison vendredi au François",tx:"Philippe Marie-Joseph · 0696 322 451 · philippe@capcreole.com · Commande J-1 avant 12h · Min. 150€"},
+    {c:"b",ti:"Carex Madigourmet — Crevettes queue 16/20 à 13,64€/kg",tx:"REF N_313345 · Sophie Lebhar · 0696 16 98 00 · s.lebhar@carex972.com"},
+    {c:"g",ti:"Pro à Pro — Poulpe 12€/kg · Marlin 10,95€/kg",tx:"REF 167464 / 50164 · Conditions exclusives négociées Offshore FWI"},
+  ];
+  return `<div class="page-title">Offres & alertes 🔔</div>
+  <div class="page-sub">Prix manquants à renseigner · Offres fournisseurs actives</div>
+  ${sansPrix.length>0?`<div style="font-size:10px;color:var(--warn);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:500">Prix HT non renseignés (${sansPrix.length})</div>
+  ${sansPrix.slice(0,8).map(p=>`<div class="al a">
+    <div style="flex:1"><div class="al-ti">${esc(p.nom)}</div><div class="al-tx">${esc(p.cat)} · ${esc(p.fourn)}</div></div>
+    <button class="btn sm" onclick="goPage('produits')">Saisir →</button>
+  </div>`).join("")}`:""}
+  <div style="font-size:10px;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;font-weight:500">Offres actives fournisseurs</div>
+  ${offres.map(o=>`<div class="al ${o.c}"><div><div class="al-ti">${o.ti}</div><div class="al-tx">${o.tx}</div></div></div>`).join("")}`;
+}
+
+// ═══════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════
+function openAdd(){
+  STATE.editId=null;
+  STATE.np={nom:"",cat:CATS[0],fourn:FOURNS[0],ref:"",unite:"unité",qte:"1",ht:"",ttc:"",pcb:"",note:""};
+  STATE.showAdd=true; render();
+}
+function startEdit(id){
+  const p=STATE.prods.find(x=>x.id===id); if(!p) return;
+  STATE.np={nom:p.nom,cat:p.cat,fourn:p.fourn,ref:p.ref||"",unite:p.unite,qte:p.qte||"1",ht:p.ht||"",ttc:p.ttc||"",pcb:p.pcb||"",note:p.note||""};
+  STATE.editId=id; STATE.showAdd=true; render();
+}
+function startInline(id){ STATE.inlineId=id; render(); }
+function saveInline(id){
+  const ht=parseFloat(document.getElementById("il-ht")?.value)||null;
+  const ttc=parseFloat(document.getElementById("il-ttc")?.value)||null;
+  STATE.prods=STATE.prods.map(p=>p.id===id?{...p,ht,ttc}:p);
+  STATE.inlineId=null; saveProds(); toast("Prix mis à jour ✓"); render(); updateAlertBadge();
+}
+function saveProd(){
+  const nom=document.getElementById("np-nom")?.value?.trim();
+  if(!nom){toast("Le nom est obligatoire");return;}
+  const obj={
+    id:STATE.editId||Date.now(),
+    nom, cat:document.getElementById("np-cat").value,
+    fourn:document.getElementById("np-fourn").value,
+    ref:document.getElementById("np-ref").value||null,
+    unite:document.getElementById("np-unite").value,
+    qte:parseFloat(document.getElementById("np-qte").value)||1,
+    ht:parseFloat(document.getElementById("np-ht").value)||null,
+    ttc:parseFloat(document.getElementById("np-ttc").value)||null,
+    pcb:parseInt(document.getElementById("np-pcb")?.value)||null,
+    tva:null, note:document.getElementById("np-note").value||""
+  };
+  if(STATE.editId) STATE.prods=STATE.prods.map(p=>p.id===STATE.editId?obj:p);
+  else STATE.prods=[...STATE.prods,obj];
+  STATE.editId=null; STATE.showAdd=false;
+  STATE.np={nom:"",cat:CATS[0],fourn:FOURNS[0],ref:"",unite:"unité",qte:"1",ht:"",ttc:"",pcb:"",note:""};
+  saveProds(); toast("Produit enregistré ✓"); render(); updateAlertBadge();
+}
+function delProd(id){
+  if(!confirm("Supprimer ce produit ?")) return;
+  STATE.prods=STATE.prods.filter(p=>p.id!==id);
+  saveProds(); toast("Produit supprimé"); render(); updateAlertBadge();
+}
+
+// SCAN
+async function handleScan(files){
+  if(!files||!files[0]) return;
+  const f=files[0];
+  STATE.scanLoading=true; STATE.scanItems=[]; render();
+  const reader=new FileReader();
+  reader.onload=async(ev)=>{
+    const b64=ev.target.result.split(",")[1];
+    const mt=f.type||"image/jpeg";
+    const prompt=STATE.scanType==="catalogue"
+      ?`Analyse ce catalogue fournisseur pour un restaurant en Martinique. Extrais TOUS les produits visibles avec leur prix HT. Réponds UNIQUEMENT avec un tableau JSON valide, sans texte avant ni après, sans balises markdown : [{"produit":"nom complet","ref":"référence si visible","prix":0.00,"unite":"unité/litre/kg selon le produit","format":"ex:75cl ou 5kg","fourn":"fournisseur si visible","note":"offre promo si mentionnée"}]`
+      :`Analyse cette facture fournisseur. Extrais chaque ligne produit avec prix unitaire HT. Réponds UNIQUEMENT avec un tableau JSON valide, sans texte avant ni après, sans balises markdown : [{"produit":"nom","ref":"référence","qte":1,"prixUnit":0.00,"total":0.00,"fourn":"fournisseur","note":""}]`;
+    try{
+      const r=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:3000,
+          messages:[{role:"user",content:[
+            {type:"image",source:{type:"base64",media_type:mt,data:b64}},
+            {type:"text",text:prompt}
+          ]}]
+        })
+      });
+      const d=await r.json();
+      const raw=(d.content?.[0]?.text||"[]").replace(/```json|```/g,"").trim();
+      const items=JSON.parse(raw);
+      STATE.scanItems=items;
+      toast(items.length+" produits extraits ✓");
+    }catch(e){
+      STATE.scanItems=[{produit:"Erreur d'analyse — vérifiez que l'image est lisible et réessayez",prix:0}];
+    }
+    STATE.scanLoading=false; render();
+  };
+  reader.readAsDataURL(f);
+}
+function importScan(i){
+  const it=STATE.scanItems[i]; if(!it) return;
+  const nom=(it.produit||"").substring(0,60);
+  const prix=it.prixUnit||it.prix||0;
+  const fourn=it.fourn||"Autre";
+  const ref=it.ref||null;
+  const note=it.note||it.format||"";
+  const match=STATE.prods.find(p=>p.nom.toLowerCase().split(" ").filter(w=>w.length>3).some(w=>nom.toLowerCase().includes(w)));
+  if(match){
+    STATE.prods=STATE.prods.map(p=>p.id===match.id?{...p,ht:prix||p.ht,fourn:fourn||p.fourn,ref:ref||p.ref,note:note||p.note}:p);
+    toast("Prix mis à jour : "+match.nom.substring(0,30));
+  } else {
+    STATE.prods=[...STATE.prods,{id:Date.now(),nom,cat:"Épicerie",fourn,ref,unite:"unité",qte:1,ht:prix||null,ttc:null,tva:null,pcb:null,note}];
+    toast("Ajouté : "+nom.substring(0,30));
+  }
+  saveProds(); updateAlertBadge();
+}
+function importAll(){
+  for(let i=0;i<STATE.scanItems.length;i++) importScan(i);
+  toast(`${STATE.scanItems.length} produits importés ✓`);
+}
+
+// COMPARATEUR
+function runCmp(){
+  const v=(STATE.cmpQ||"").toLowerCase().trim();
+  if(!v) return;
+  let found=null;
+  for(const[k,d]of Object.entries(CMP_DB)){
+    if(v.includes(k.split(" ")[0])||k.split(" ").some(w=>w.length>3&&v.includes(w))){found={...d,rows:[...d.rows]};break;}
+  }
+  if(!found){
+    const p=STATE.prods.find(x=>x.ht&&x.nom.toLowerCase().includes(v));
+    if(p)found={n:p.nom,u:p.unite,rows:[{f:p.fourn,p:p.ht,q:p.qte},{f:"Alternative +18%",p:p.ht*1.18,q:p.qte},{f:"GMS estimé +38%",p:p.ht*1.38,q:p.qte}]};
+  }
+  if(!found){toast("Produit non trouvé — essayez un autre mot-clé");return;}
+  if(STATE.extraRows.length) found={...found,rows:[...found.rows,...STATE.extraRows]};
+  STATE.cmpRes=found; render();
+}
+function addExtraRow(){
+  const f=document.getElementById("nr-f")?.value?.trim();
+  const p=parseFloat(document.getElementById("nr-p")?.value);
+  const q=parseFloat(document.getElementById("nr-q")?.value)||1;
+  if(!f||!p){toast("Renseignez fournisseur et prix");return;}
+  STATE.extraRows=[...STATE.extraRows,{f,p,q}];
+  STATE.newRow={f:"",p:"",q:"1"};
+  runCmp();
+}
+
+// EVENTS
+function bindEvents(){}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+loadState();
+updateAlertBadge();
+render();
+</script>
+</body>
+</html>
