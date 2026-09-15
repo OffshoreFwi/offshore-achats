@@ -82,6 +82,10 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 .ft-cap{background:rgba(0,153,255,0.1);color:var(--acc2);border:1px solid rgba(0,153,255,0.2)}
 .ft-pap{background:rgba(180,100,255,0.1);color:#b464ff;border:1px solid rgba(180,100,255,0.2)}
 .ft-car{background:rgba(100,180,255,0.1);color:#64b4ff;border:1px solid rgba(100,180,255,0.2)}
+.ft-cfm{background:rgba(255,140,60,0.1);color:#ff8c3c;border:1px solid rgba(255,140,60,0.2)}
+.ft-lec{background:rgba(240,220,60,0.1);color:#e8d43c;border:1px solid rgba(240,220,60,0.2)}
+.ft-meg{background:rgba(150,150,150,0.12);color:#aab0bd;border:1px solid rgba(150,150,150,0.2)}
+.ft-pcs{background:rgba(255,100,180,0.1);color:#ff64b4;border:1px solid rgba(255,100,180,0.2)}
 /* ALERTS */
 .al{display:flex;gap:10px;padding:10px 12px;border-radius:var(--r);margin-bottom:8px;font-size:12px;align-items:flex-start}
 .al.r{background:rgba(255,79,109,0.08);border:1px solid rgba(255,79,109,0.2)}
@@ -140,6 +144,7 @@ tr:hover td{background:rgba(255,255,255,0.02)}
     <button class="tab" onclick="goPage('scan')">📷 Scanner</button>
     <button class="tab" onclick="goPage('comparateur')">⚖️ Comparateur</button>
     <button class="tab" onclick="goPage('alertes')" id="tab-alertes">🔔 Offres & Alertes</button>
+    <button class="tab" onclick="goPage('sources')" id="tab-sources">🔎 Sources surveillées</button>
   </div>
 </div>
 
@@ -258,9 +263,12 @@ const CMP_DB = {
 };
 
 const CATS = ["Boissons alcool","Bières","Champagnes & Vins","Softs & Eaux","Poissons & Fruits de mer","Viandes & Volailles","Frais & Surgelés","Épicerie","Condiments"];
-const FOURNS = ["BBS / Campari","Brasserie Lorraine","Sodimar","Cap Créole","Pro à Pro","Carex Madigourmet","Promocash","Leclerc","Carrefour","Megastock","Autre"];
+const FOURNS = ["BBS / Campari","Brasserie Lorraine","Sodimar","Cap Créole","Pro à Pro","Carex Madigourmet","Promocash","Leclerc","Carrefour","Carrefour Market","Megastock","Autre"];
 const UNITS = ["unité","litre","100ml","kg","100g","portion"];
-const FOURN_CLS = {"BBS / Campari":"ft-bbs","Brasserie Lorraine":"ft-lor","Sodimar":"ft-sod","Cap Créole":"ft-cap","Pro à Pro":"ft-pap","Carex Madigourmet":"ft-car"};
+const FOURN_CLS = {"BBS / Campari":"ft-bbs","Brasserie Lorraine":"ft-lor","Sodimar":"ft-sod","Cap Créole":"ft-cap","Pro à Pro":"ft-pap","Carex Madigourmet":"ft-car","Carrefour":"ft-cfm","Carrefour Market":"ft-cfm","Leclerc":"ft-lec","Megastock":"ft-meg","Promocash":"ft-pcs"};
+
+// SOURCES SURVEILLÉES — flux JSON généré chaque semaine par le scraper GitHub Actions
+const SOURCES_FEED_URL = "https://raw.githubusercontent.com/OffshoreFwi/offshore-achats/main/data/catalogues.json";
 
 // ═══════════════════════════════════════
 // STATE — localStorage
@@ -270,6 +278,7 @@ let STATE = {
   cmpQ:"", cmpMode:"unite", cmpRes:null, extraRows:[],
   scanType:"catalogue", scanItems:[], scanLoading:false,
   showAdd:false, editId:null, inlineId:null,
+  sourcesData:null, sourcesLoading:false, sourcesError:null,
   np:{nom:"",cat:CATS[0],fourn:FOURNS[0],ref:"",unite:"unité",qte:"1",ht:"",ttc:"",note:""},
   newRow:{f:"",p:"",q:"1"},
 };
@@ -307,7 +316,7 @@ function goPage(p){
   STATE.page=p; STATE.showAdd=false; STATE.inlineId=null;
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("on"));
   const tabs=document.querySelectorAll(".tab");
-  const idx={produits:0,scan:1,comparateur:2,alertes:3};
+  const idx={produits:0,scan:1,comparateur:2,alertes:3,sources:4};
   if(tabs[idx[p]]) tabs[idx[p]].classList.add("on");
   updateAlertBadge(); render();
 }
@@ -327,6 +336,7 @@ function render(){
   else if(STATE.page==="scan") app.innerHTML=renderScan();
   else if(STATE.page==="comparateur") app.innerHTML=renderCmp();
   else if(STATE.page==="alertes") app.innerHTML=renderAlertes();
+  else if(STATE.page==="sources") app.innerHTML=renderSources();
   bindEvents();
 }
 
@@ -589,6 +599,66 @@ function renderAlertes(){
   ${offres.map(o=>`<div class="al ${o.c}"><div><div class="al-ti">${o.ti}</div><div class="al-tx">${o.tx}</div></div></div>`).join("")}`;
 }
 
+// ─── PAGE SOURCES SURVEILLÉES ───
+function renderSources(){
+  if(STATE.sourcesLoading){
+    return `<div class="page-title">Sources surveillées 🔎</div>
+    <div class="page-sub">Catalogues détectés automatiquement chaque semaine</div>
+    <div class="card"><span class="spin"></span>Chargement du dernier scraping…</div>`;
+  }
+  if(STATE.sourcesError || !STATE.sourcesData){
+    return `<div class="page-title">Sources surveillées 🔎</div>
+    <div class="page-sub">Catalogues détectés automatiquement chaque semaine</div>
+    <div class="al a"><div><div class="al-ti">Flux pas encore disponible</div>
+    <div class="al-tx">Le scraper GitHub Actions n'a pas encore tourné, ou data/catalogues.json n'existe pas encore dans le repo. Lance-le manuellement depuis l'onglet "Actions" du repo GitHub (bouton "Run workflow") pour générer la première version.</div></div></div>
+    <div class="btn-row" style="margin-top:10px"><button class="btn" onclick="fetchSources()">↻ Réessayer</button></div>`;
+  }
+  const d=STATE.sourcesData;
+  const genDate=d.generated_at?new Date(d.generated_at).toLocaleString("fr-FR"):"—";
+  const statutBadge=(s)=>{
+    if(s==="ok"||s==="à jour") return `<span class="badge bg">à jour</span>`;
+    if(s==="inaccessible") return `<span class="badge br">inaccessible</span>`;
+    if(s==="à vérifier manuellement") return `<span class="badge bo">à vérifier manuellement</span>`;
+    if(s==="aucun catalogue trouvé") return `<span class="badge bm">aucun catalogue</span>`;
+    return `<span class="badge bm">${esc(s)}</span>`;
+  };
+  const totalNouveaux=(d.sources||[]).reduce((n,s)=>n+(s.catalogues||[]).filter(c=>c.nouveau).length,0);
+  return `<div class="page-title">Sources surveillées 🔎</div>
+  <div class="page-sub">Dernier scraping : ${genDate} · ${totalNouveaux} nouveau(x) catalogue(s) détecté(s)</div>
+  ${(d.sources||[]).map(s=>`
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div class="card-title" style="margin-bottom:0">${esc(s.fournisseur)}</div>
+        ${statutBadge(s.statut)}
+      </div>
+      ${s.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px">${esc(s.note)}</div>`:""}
+      ${s.erreur?`<div style="font-size:11px;color:var(--danger);margin-bottom:8px">Erreur : ${esc(s.erreur)}</div>`:""}
+      ${(s.catalogues&&s.catalogues.length)?s.catalogues.map(c=>`
+        <div class="al ${c.nouveau?"g":"b"}" style="margin-bottom:6px">
+          <div style="flex:1">
+            <div class="al-ti">${esc(c.titre)} ${c.nouveau?'<span class="badge bg" style="margin-left:6px">nouveau</span>':""}</div>
+            <div class="al-tx">${statutBadge(c.statut)}</div>
+          </div>
+          <a href="${esc(c.lien)}" target="_blank" class="btn sm">Feuilleter →</a>
+        </div>`).join(""):""}
+    </div>`).join("")}
+  <div class="page-sub" style="margin-top:8px">Scraping hebdomadaire (chaque lundi) via GitHub Actions · Les prix ne sont pas extraits automatiquement des catalogues détectés — utilisez l'onglet Scanner pour les analyser à la demande.</div>`;
+}
+async function fetchSources(){
+  STATE.sourcesLoading=true; STATE.sourcesError=null; render();
+  try{
+    const r=await fetch(SOURCES_FEED_URL+"?t="+Date.now());
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    STATE.sourcesData=await r.json();
+    const n=(STATE.sourcesData.sources||[]).reduce((a,s)=>a+(s.catalogues||[]).filter(c=>c.nouveau).length,0);
+    const t=document.getElementById("tab-sources");
+    if(t) t.innerHTML=`🔎 Sources surveillées${n>0?` <span class="badge br">${n}</span>`:""}`;
+  }catch(e){
+    STATE.sourcesError=e.message;
+  }
+  STATE.sourcesLoading=false; render();
+}
+
 // ═══════════════════════════════════════
 // ACTIONS
 // ═══════════════════════════════════════
@@ -728,6 +798,7 @@ function bindEvents(){}
 loadState();
 updateAlertBadge();
 render();
+fetchSources();
 </script>
 </body>
 </html>
