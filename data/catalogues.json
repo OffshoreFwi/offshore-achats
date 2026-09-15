@@ -1,42 +1,118 @@
 {
-  "generated_at": "2026-09-15T02:08:20.784Z",
+  "generated_at": "2026-09-15T02:18:43.074Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
-      "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:08:20.787Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T02:18:43.466Z",
+      "catalogues": [
+        {
+          "titre": "carrefour martinique jai choisi 2",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2196/carrefour-martinique-jai-choisi-2/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "en route pour la rentree",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2179/en-route-pour-la-rentree/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "carrefour martinique jai choisi",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2166/carrefour-martinique-jai-choisi/",
+          "statut": "à vérifier",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
       "note": null
     },
     {
       "fournisseur": "Carrefour Market",
-      "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:08:27.746Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T02:19:01.134Z",
+      "catalogues": [
+        {
+          "titre": "les maxi economies 8",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2197/les-maxi-economies-8/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "la rentree des prix 2",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2180/la-rentree-des-prix-2/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "prix casses",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2171/prix-casses/",
+          "statut": "à vérifier",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
       "note": null
     },
     {
       "fournisseur": "Leclerc",
-      "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:08:30.971Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T02:19:10.308Z",
+      "catalogues": [
+        {
+          "titre": "jackpot anniversaire",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2192/jackpot-anniversaire/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "special high tech 3",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2183/special-high-tech-3/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "les pleins pouvoirs dachat",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2177/les-pleins-pouvoirs-dachat/",
+          "statut": "à vérifier",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
       "note": null
     },
     {
       "fournisseur": "Megastock",
-      "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:08:35.784Z",
-      "catalogues": [],
+      "statut": "ok",
+      "derniere_verification": "2026-09-15T02:19:23.921Z",
+      "catalogues": [
+        {
+          "titre": "les prix grossistes pour tous 3",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2195/les-prix-grossistes-pour-tous-3/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "mega rentree",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2189/mega-rentree/",
+          "statut": "à vérifier",
+          "nouveau": true
+        },
+        {
+          "titre": "les prix grossistes pour tous 2",
+          "lien": "https://www.promos.mq//www.promos.mq/catalogue/display/2162/les-prix-grossistes-pour-tous-2/",
+          "statut": "à vérifier",
+          "nouveau": true
+        }
+      ],
       "erreur": null,
       "note": null
     },
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-09-15T02:08:37.490Z",
+      "derniere_verification": "2026-09-15T02:19:29.205Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner, ou via contact commercial Promocash Le Lamentin."
@@ -44,7 +120,7 @@
     {
       "fournisseur": "iLéco",
       "statut": "aucun catalogue trouvé",
-      "derniere_verification": "2026-09-15T02:08:37.490Z",
+      "derniere_verification": "2026-09-15T02:19:29.205Z",
       "catalogues": [],
       "erreur": null,
       "note": "Application/site potentiellement dynamique (JS) — extraction best-effort. Si le statut reste 'aucun catalogue trouvé' plusieurs semaines de suite, l'extraction automatique n'est probablement pas possible sans navigateur headless et il faudra repasser en veille manuelle pour cette source."
