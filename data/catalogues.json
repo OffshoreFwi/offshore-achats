@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-15T03:22:50.654Z",
+  "generated_at": "2026-09-21T10:05:43.923Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:22:52.644Z",
+      "derniere_verification": "2026-09-21T10:05:44.176Z",
       "catalogues": [
         {
           "titre": "carrefour martinique jai choisi 2",
@@ -19,13 +19,6 @@
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2179/en-route-pour-la-rentree/",
           "nouveau": false
-        },
-        {
-          "titre": "carrefour martinique jai choisi",
-          "lien": "https://www.promos.mq/catalogue/display/2166/carrefour-martinique-jai-choisi/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2166/carrefour-martinique-jai-choisi/",
-          "nouveau": false
         }
       ],
       "erreur": null,
@@ -34,7 +27,7 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:23:10.325Z",
+      "derniere_verification": "2026-09-21T10:06:01.615Z",
       "catalogues": [
         {
           "titre": "les maxi economies 8",
@@ -49,13 +42,6 @@
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2180/la-rentree-des-prix-2/",
           "nouveau": false
-        },
-        {
-          "titre": "prix casses",
-          "lien": "https://www.promos.mq/catalogue/display/2171/prix-casses/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2171/prix-casses/",
-          "nouveau": false
         }
       ],
       "erreur": null,
@@ -64,7 +50,7 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:23:19.342Z",
+      "derniere_verification": "2026-09-21T10:06:11.082Z",
       "catalogues": [
         {
           "titre": "jackpot anniversaire",
@@ -94,7 +80,7 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:23:32.095Z",
+      "derniere_verification": "2026-09-21T10:06:24.239Z",
       "catalogues": [
         {
           "titre": "les prix grossistes pour tous 3",
@@ -109,13 +95,6 @@
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2189/mega-rentree/",
           "nouveau": false
-        },
-        {
-          "titre": "les prix grossistes pour tous 2",
-          "lien": "https://www.promos.mq/catalogue/display/2162/les-prix-grossistes-pour-tous-2/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2162/les-prix-grossistes-pour-tous-2/",
-          "nouveau": false
         }
       ],
       "erreur": null,
@@ -124,7 +103,7 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-09-15T03:23:37.339Z",
+      "derniere_verification": "2026-09-21T10:06:29.389Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
@@ -132,7 +111,7 @@
     {
       "fournisseur": "iLéco — Auchan",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:23:37.339Z",
+      "derniere_verification": "2026-09-21T10:06:29.389Z",
       "catalogues": [
         {
           "titre": "AUCHAN MARTINIQUE",
@@ -155,7 +134,7 @@
     {
       "fournisseur": "iLéco — Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:23:40.501Z",
+      "derniere_verification": "2026-09-21T10:06:32.458Z",
       "catalogues": [
         {
           "titre": "CARREFOUR MARKET MARTINIQUE",
@@ -171,7 +150,7 @@
     {
       "fournisseur": "iLéco — Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:23:41.790Z",
+      "derniere_verification": "2026-09-21T10:06:33.742Z",
       "catalogues": [
         {
           "titre": "E.LECLERC MARTINIQUE",
@@ -187,7 +166,7 @@
     {
       "fournisseur": "iLéco — Thiriet",
       "statut": "ok",
-      "derniere_verification": "2026-09-15T03:23:43.071Z",
+      "derniere_verification": "2026-09-21T10:06:35.024Z",
       "catalogues": [
         {
           "titre": "THIRIET MARTINIQUE",
