@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-19T10:24:03.002Z",
+  "generated_at": "2026-10-26T16:33:05.171Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:03.789Z",
+      "derniere_verification": "2026-10-26T16:33:05.795Z",
       "catalogues": [
         {
           "titre": "le mois anniversaire",
@@ -27,8 +27,15 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:22.332Z",
+      "derniere_verification": "2026-10-26T16:33:25.096Z",
       "catalogues": [
+        {
+          "titre": "special anniversaire 5",
+          "lien": "https://www.promos.mq/catalogue/display/2229/special-anniversaire-5/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2229/special-anniversaire-5/",
+          "nouveau": true
+        },
         {
           "titre": "foire aux vins 4",
           "lien": "https://www.promos.mq/catalogue/display/2218/foire-aux-vins-4/",
@@ -50,27 +57,20 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:32.380Z",
+      "derniere_verification": "2026-10-26T16:33:34.617Z",
       "catalogues": [
         {
           "titre": "la beaute a prix eleclerc",
           "lien": "https://www.promos.mq/catalogue/display/2226/la-beaute-a-prix-eleclerc/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2226/la-beaute-a-prix-eleclerc/",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "que des promos en or pour le quotidien",
           "lien": "https://www.promos.mq/catalogue/display/2221/que-des-promos-en-or-pour-le-quotidien/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2221/que-des-promos-en-or-pour-le-quotidien/",
-          "nouveau": true
-        },
-        {
-          "titre": "la foire aux vins 3",
-          "lien": "https://www.promos.mq/catalogue/display/2211/la-foire-aux-vins-3/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2211/la-foire-aux-vins-3/",
           "nouveau": false
         }
       ],
@@ -80,27 +80,20 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:45.926Z",
+      "derniere_verification": "2026-10-26T16:33:48.372Z",
       "catalogues": [
         {
           "titre": "les prix grossistes pour tous 4",
           "lien": "https://www.promos.mq/catalogue/display/2227/les-prix-grossistes-pour-tous-4/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2227/les-prix-grossistes-pour-tous-4/",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "mega bons plans 2",
           "lien": "https://www.promos.mq/catalogue/display/2213/mega-bons-plans-2/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2213/mega-bons-plans-2/",
-          "nouveau": false
-        },
-        {
-          "titre": "les prix grossistes pour tous 3",
-          "lien": "https://www.promos.mq/catalogue/display/2195/les-prix-grossistes-pour-tous-3/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2195/les-prix-grossistes-pour-tous-3/",
           "nouveau": false
         }
       ],
@@ -110,7 +103,7 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-10-19T10:24:51.387Z",
+      "derniere_verification": "2026-10-26T16:33:53.809Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
@@ -118,7 +111,7 @@
     {
       "fournisseur": "iLéco — Auchan",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:51.387Z",
+      "derniere_verification": "2026-10-26T16:33:53.809Z",
       "catalogues": [
         {
           "titre": "AUCHAN MARTINIQUE",
@@ -141,7 +134,7 @@
     {
       "fournisseur": "iLéco — Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:54.607Z",
+      "derniere_verification": "2026-10-26T16:33:56.972Z",
       "catalogues": [
         {
           "titre": "CARREFOUR MARKET MARTINIQUE",
@@ -157,7 +150,7 @@
     {
       "fournisseur": "iLéco — Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:55.939Z",
+      "derniere_verification": "2026-10-26T16:33:58.283Z",
       "catalogues": [
         {
           "titre": "E.LECLERC MARTINIQUE",
@@ -173,7 +166,7 @@
     {
       "fournisseur": "iLéco — Thiriet",
       "statut": "ok",
-      "derniere_verification": "2026-10-19T10:24:57.275Z",
+      "derniere_verification": "2026-10-26T16:33:59.596Z",
       "catalogues": [
         {
           "titre": "THIRIET MARTINIQUE",
