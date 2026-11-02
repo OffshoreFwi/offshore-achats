@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T16:33:05.171Z",
+  "generated_at": "2026-11-02T19:54:52.088Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:05.795Z",
+      "derniere_verification": "2026-11-02T19:54:52.399Z",
       "catalogues": [
         {
           "titre": "le mois anniversaire",
@@ -27,27 +27,20 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:25.096Z",
+      "derniere_verification": "2026-11-02T19:55:10.067Z",
       "catalogues": [
         {
           "titre": "special anniversaire 5",
           "lien": "https://www.promos.mq/catalogue/display/2229/special-anniversaire-5/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2229/special-anniversaire-5/",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "foire aux vins 4",
           "lien": "https://www.promos.mq/catalogue/display/2218/foire-aux-vins-4/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2218/foire-aux-vins-4/",
-          "nouveau": false
-        },
-        {
-          "titre": "gros volumes 3",
-          "lien": "https://www.promos.mq/catalogue/display/2207/gros-volumes-3/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2207/gros-volumes-3/",
           "nouveau": false
         }
       ],
@@ -57,7 +50,7 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:34.617Z",
+      "derniere_verification": "2026-11-02T19:55:19.119Z",
       "catalogues": [
         {
           "titre": "la beaute a prix eleclerc",
@@ -80,8 +73,15 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:48.372Z",
+      "derniere_verification": "2026-11-02T19:55:32.207Z",
       "catalogues": [
+        {
+          "titre": "les offres mega stock",
+          "lien": "https://www.promos.mq/catalogue/display/2237/les-offres-mega-stock/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2237/les-offres-mega-stock/",
+          "nouveau": true
+        },
         {
           "titre": "les prix grossistes pour tous 4",
           "lien": "https://www.promos.mq/catalogue/display/2227/les-prix-grossistes-pour-tous-4/",
@@ -103,7 +103,7 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-10-26T16:33:53.809Z",
+      "derniere_verification": "2026-11-02T19:55:37.562Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
@@ -111,7 +111,7 @@
     {
       "fournisseur": "iLéco — Auchan",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:53.809Z",
+      "derniere_verification": "2026-11-02T19:55:37.562Z",
       "catalogues": [
         {
           "titre": "AUCHAN MARTINIQUE",
@@ -134,7 +134,7 @@
     {
       "fournisseur": "iLéco — Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:56.972Z",
+      "derniere_verification": "2026-11-02T19:55:40.741Z",
       "catalogues": [
         {
           "titre": "CARREFOUR MARKET MARTINIQUE",
@@ -150,7 +150,7 @@
     {
       "fournisseur": "iLéco — Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:58.283Z",
+      "derniere_verification": "2026-11-02T19:55:42.039Z",
       "catalogues": [
         {
           "titre": "E.LECLERC MARTINIQUE",
@@ -166,7 +166,7 @@
     {
       "fournisseur": "iLéco — Thiriet",
       "statut": "ok",
-      "derniere_verification": "2026-10-26T16:33:59.596Z",
+      "derniere_verification": "2026-11-02T19:55:43.329Z",
       "catalogues": [
         {
           "titre": "THIRIET MARTINIQUE",
