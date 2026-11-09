@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-02T19:54:52.088Z",
+  "generated_at": "2026-11-09T20:19:40.375Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:54:52.399Z",
+      "derniere_verification": "2026-11-09T20:19:40.587Z",
       "catalogues": [
         {
           "titre": "le mois anniversaire",
@@ -27,8 +27,15 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:55:10.067Z",
+      "derniere_verification": "2026-11-09T20:19:57.689Z",
       "catalogues": [
+        {
+          "titre": "cap sur les promos",
+          "lien": "https://www.promos.mq/catalogue/display/2244/cap-sur-les-promos/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2244/cap-sur-les-promos/",
+          "nouveau": true
+        },
         {
           "titre": "special anniversaire 5",
           "lien": "https://www.promos.mq/catalogue/display/2229/special-anniversaire-5/",
@@ -50,8 +57,22 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:55:19.119Z",
+      "derniere_verification": "2026-11-09T20:20:06.575Z",
       "catalogues": [
+        {
+          "titre": "les pleins pouvoirs dachat 2",
+          "lien": "https://www.promos.mq/catalogue/display/2242/les-pleins-pouvoirs-dachat-2/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2242/les-pleins-pouvoirs-dachat-2/",
+          "nouveau": true
+        },
+        {
+          "titre": "decorations festives a prix eleclerc",
+          "lien": "https://www.promos.mq/catalogue/display/2240/decorations-festives-a-prix-eleclerc/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2240/decorations-festives-a-prix-eleclerc/",
+          "nouveau": true
+        },
         {
           "titre": "la beaute a prix eleclerc",
           "lien": "https://www.promos.mq/catalogue/display/2226/la-beaute-a-prix-eleclerc/",
@@ -73,27 +94,20 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:55:32.207Z",
+      "derniere_verification": "2026-11-09T20:20:19.393Z",
       "catalogues": [
         {
           "titre": "les offres mega stock",
           "lien": "https://www.promos.mq/catalogue/display/2237/les-offres-mega-stock/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2237/les-offres-mega-stock/",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "les prix grossistes pour tous 4",
           "lien": "https://www.promos.mq/catalogue/display/2227/les-prix-grossistes-pour-tous-4/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2227/les-prix-grossistes-pour-tous-4/",
-          "nouveau": false
-        },
-        {
-          "titre": "mega bons plans 2",
-          "lien": "https://www.promos.mq/catalogue/display/2213/mega-bons-plans-2/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2213/mega-bons-plans-2/",
           "nouveau": false
         }
       ],
@@ -103,7 +117,7 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-11-02T19:55:37.562Z",
+      "derniere_verification": "2026-11-09T20:20:24.472Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
@@ -111,7 +125,7 @@
     {
       "fournisseur": "iLéco — Auchan",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:55:37.562Z",
+      "derniere_verification": "2026-11-09T20:20:24.472Z",
       "catalogues": [
         {
           "titre": "AUCHAN MARTINIQUE",
@@ -134,7 +148,7 @@
     {
       "fournisseur": "iLéco — Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:55:40.741Z",
+      "derniere_verification": "2026-11-09T20:20:27.189Z",
       "catalogues": [
         {
           "titre": "CARREFOUR MARKET MARTINIQUE",
@@ -150,7 +164,7 @@
     {
       "fournisseur": "iLéco — Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:55:42.039Z",
+      "derniere_verification": "2026-11-09T20:20:28.388Z",
       "catalogues": [
         {
           "titre": "E.LECLERC MARTINIQUE",
@@ -166,7 +180,7 @@
     {
       "fournisseur": "iLéco — Thiriet",
       "statut": "ok",
-      "derniere_verification": "2026-11-02T19:55:43.329Z",
+      "derniere_verification": "2026-11-09T20:20:29.566Z",
       "catalogues": [
         {
           "titre": "THIRIET MARTINIQUE",
