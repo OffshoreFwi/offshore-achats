@@ -1,23 +1,30 @@
 {
-  "generated_at": "2026-11-09T20:19:40.375Z",
+  "generated_at": "2026-11-16T19:57:20.578Z",
   "sources": [
     {
       "fournisseur": "Carrefour",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:19:40.587Z",
+      "derniere_verification": "2026-11-16T19:57:21.873Z",
       "catalogues": [
+        {
+          "titre": "prets a jouer",
+          "lien": "https://www.promos.mq/catalogue/display/2249/prets-a-jouer/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2249/prets-a-jouer/",
+          "nouveau": true
+        },
+        {
+          "titre": "la tradition a petits prix",
+          "lien": "https://www.promos.mq/catalogue/display/2250/la-tradition-a-petits-prix/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2250/la-tradition-a-petits-prix/",
+          "nouveau": true
+        },
         {
           "titre": "le mois anniversaire",
           "lien": "https://www.promos.mq/catalogue/display/2209/le-mois-anniversaire/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2209/le-mois-anniversaire/",
-          "nouveau": false
-        },
-        {
-          "titre": "carrefour martinique jai choisi 2",
-          "lien": "https://www.promos.mq/catalogue/display/2196/carrefour-martinique-jai-choisi-2/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2196/carrefour-martinique-jai-choisi-2/",
           "nouveau": false
         }
       ],
@@ -27,27 +34,20 @@
     {
       "fournisseur": "Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:19:57.689Z",
+      "derniere_verification": "2026-11-16T19:57:39.660Z",
       "catalogues": [
         {
           "titre": "cap sur les promos",
           "lien": "https://www.promos.mq/catalogue/display/2244/cap-sur-les-promos/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2244/cap-sur-les-promos/",
-          "nouveau": true
+          "nouveau": false
         },
         {
           "titre": "special anniversaire 5",
           "lien": "https://www.promos.mq/catalogue/display/2229/special-anniversaire-5/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2229/special-anniversaire-5/",
-          "nouveau": false
-        },
-        {
-          "titre": "foire aux vins 4",
-          "lien": "https://www.promos.mq/catalogue/display/2218/foire-aux-vins-4/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2218/foire-aux-vins-4/",
           "nouveau": false
         }
       ],
@@ -57,13 +57,20 @@
     {
       "fournisseur": "Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:20:06.575Z",
+      "derniere_verification": "2026-11-16T19:57:49.001Z",
       "catalogues": [
         {
-          "titre": "les pleins pouvoirs dachat 2",
-          "lien": "https://www.promos.mq/catalogue/display/2242/les-pleins-pouvoirs-dachat-2/",
+          "titre": "chante nwel 9",
+          "lien": "https://www.promos.mq/catalogue/display/2248/chante-nwel-9/",
           "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2242/les-pleins-pouvoirs-dachat-2/",
+          "empreinte": "https://www.promos.mq/catalogue/display/2248/chante-nwel-9/",
+          "nouveau": true
+        },
+        {
+          "titre": "la fabuleuse fabrique des jouets",
+          "lien": "https://www.promos.mq/catalogue/display/2246/la-fabuleuse-fabrique-des-jouets/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2246/la-fabuleuse-fabrique-des-jouets/",
           "nouveau": true
         },
         {
@@ -71,20 +78,20 @@
           "lien": "https://www.promos.mq/catalogue/display/2240/decorations-festives-a-prix-eleclerc/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2240/decorations-festives-a-prix-eleclerc/",
-          "nouveau": true
+          "nouveau": false
+        },
+        {
+          "titre": "les pleins pouvoirs dachat 2",
+          "lien": "https://www.promos.mq/catalogue/display/2242/les-pleins-pouvoirs-dachat-2/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2242/les-pleins-pouvoirs-dachat-2/",
+          "nouveau": false
         },
         {
           "titre": "la beaute a prix eleclerc",
           "lien": "https://www.promos.mq/catalogue/display/2226/la-beaute-a-prix-eleclerc/",
           "statut": "à jour",
           "empreinte": "https://www.promos.mq/catalogue/display/2226/la-beaute-a-prix-eleclerc/",
-          "nouveau": false
-        },
-        {
-          "titre": "que des promos en or pour le quotidien",
-          "lien": "https://www.promos.mq/catalogue/display/2221/que-des-promos-en-or-pour-le-quotidien/",
-          "statut": "à jour",
-          "empreinte": "https://www.promos.mq/catalogue/display/2221/que-des-promos-en-or-pour-le-quotidien/",
           "nouveau": false
         }
       ],
@@ -94,8 +101,15 @@
     {
       "fournisseur": "Megastock",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:20:19.393Z",
+      "derniere_verification": "2026-11-16T19:58:02.817Z",
       "catalogues": [
+        {
+          "titre": "les bons plans mega stock 6",
+          "lien": "https://www.promos.mq/catalogue/display/2247/les-bons-plans-mega-stock-6/",
+          "statut": "à jour",
+          "empreinte": "https://www.promos.mq/catalogue/display/2247/les-bons-plans-mega-stock-6/",
+          "nouveau": true
+        },
         {
           "titre": "les offres mega stock",
           "lien": "https://www.promos.mq/catalogue/display/2237/les-offres-mega-stock/",
@@ -117,7 +131,7 @@
     {
       "fournisseur": "Promocash",
       "statut": "à vérifier manuellement",
-      "derniere_verification": "2026-11-09T20:20:24.472Z",
+      "derniere_verification": "2026-11-16T19:58:08.158Z",
       "catalogues": [],
       "erreur": null,
       "note": "Pas de page Martinique dédiée fiable trouvée automatiquement (grossiste pro, catalogue national). À importer manuellement via l'onglet Scanner."
@@ -125,7 +139,7 @@
     {
       "fournisseur": "iLéco — Auchan",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:20:24.472Z",
+      "derniere_verification": "2026-11-16T19:58:08.159Z",
       "catalogues": [
         {
           "titre": "AUCHAN MARTINIQUE",
@@ -148,7 +162,7 @@
     {
       "fournisseur": "iLéco — Carrefour Market",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:20:27.189Z",
+      "derniere_verification": "2026-11-16T19:58:11.333Z",
       "catalogues": [
         {
           "titre": "CARREFOUR MARKET MARTINIQUE",
@@ -164,7 +178,7 @@
     {
       "fournisseur": "iLéco — Leclerc",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:20:28.388Z",
+      "derniere_verification": "2026-11-16T19:58:12.648Z",
       "catalogues": [
         {
           "titre": "E.LECLERC MARTINIQUE",
@@ -180,7 +194,7 @@
     {
       "fournisseur": "iLéco — Thiriet",
       "statut": "ok",
-      "derniere_verification": "2026-11-09T20:20:29.566Z",
+      "derniere_verification": "2026-11-16T19:58:13.961Z",
       "catalogues": [
         {
           "titre": "THIRIET MARTINIQUE",
